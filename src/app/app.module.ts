@@ -5,12 +5,14 @@ import { AppComponent } from './app.component';
 import { PrimkeComponent } from './primke/primke.component';
 import { DobavljacComponent } from './dobavljac/dobavljac.component';
 import { DobavljacService } from './dobavljac/dobavljac.service';
+import { NavigacijaComponent } from './navigacija/navigacija.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PrimkeComponent,
-    DobavljacComponent
+    DobavljacComponent,
+    NavigacijaComponent
   ],
   imports: [
     BrowserModule
