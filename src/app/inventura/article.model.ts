@@ -1,9 +1,10 @@
 export class Article{
     constructor(public id : number,
                 public naziv : string,
-                public grupa : string,              
-                public lokacija : string,           
-                public postojece_stanje : number               
+                public grupa : string,       
+                public lokacija? : string,                  
+                public postojece_stanje? : number,
+                public novo_stanje? : number               
                 ) {}
 }
 

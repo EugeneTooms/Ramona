@@ -7,6 +7,48 @@ var config = require('../config');
 var kon = config.getDBconnection();
 
 
+router.get('/artikli', function(req, res, next){
+    kon.query(`select
+                    art_show_gr.naziv,
+                    articles.name,
+                    articles.id
+                from 
+                    articles, art_show_gr
+                where 
+                    articles.prikaz_group_id = art_show_gr.id 
+                order by 
+                    art_show_gr.naziv, articles.name`,
+        function(error, results){
+                if(error) {
+                    return res.status(500).json({
+                        title: 'An error has occured',
+                        error : error
+                    });
+                }			
+                res.status(200).json({
+                    message: 'Success',
+                    obj: results
+                });
+        }
+    );
+});
+router.get('/grupeartikala', function(req, res, next){
+    kon.query(`SELECT * FROM ugo.art_show_gr`,
+        function(error, results){
+                if(error) {
+                    return res.status(500).json({
+                        title: 'An error has occured',
+                        error : error
+                    });
+                }			
+                res.status(200).json({
+                    message: 'Success',
+                    obj: results
+                });
+        }
+    );
+});
+
 // router.get('/articles', function(req, res, next){
 //     kon.query('SELECT * from articles',
 //         function(error, results){
