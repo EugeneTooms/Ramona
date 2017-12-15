@@ -6,16 +6,20 @@ import { PrimkeComponent } from './primke/primke.component';
 import { DobavljacComponent } from './dobavljac/dobavljac.component';
 import { DobavljacService } from './dobavljac/dobavljac.service';
 import { NavigacijaComponent } from './navigacija/navigacija.component';
+import { InventuraComponent } from './inventura/inventura.component';
+import { routing } from './app.routing';
 
 @NgModule({
   declarations: [
     AppComponent,
     PrimkeComponent,
     DobavljacComponent,
-    NavigacijaComponent
+    NavigacijaComponent,
+    InventuraComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    routing
   ],
   providers: [DobavljacService],
   bootstrap: [AppComponent]
