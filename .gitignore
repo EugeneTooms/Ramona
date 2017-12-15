@@ -34,6 +34,9 @@ testem.log
 /typings
 yarn-error.log
 
+# konfig za spajanje na bazu
+/config
+
 # e2e
 /e2e/*.js
 /e2e/*.map
