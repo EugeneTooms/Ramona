@@ -10,6 +10,9 @@ import { DobavljacService } from './dobavljac/dobavljac.service';
 import { NavigacijaComponent } from './navigacija/navigacija.component';
 import { InventuraComponent } from './inventura/inventura.component';
 import { InventuraService } from './inventura/inventura.service';
+import { AccordionModule } from './inventura/accordion/accordion.module';
+import { FilterPipe } from './filter.pipe';
+
 
 
 @NgModule({
@@ -18,12 +21,14 @@ import { InventuraService } from './inventura/inventura.service';
     PrimkeComponent,
     DobavljacComponent,
     NavigacijaComponent,
-    InventuraComponent
+    InventuraComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,
     routing,
-    HttpModule
+    HttpModule,
+    AccordionModule
   ],
   providers: [DobavljacService,InventuraService],
   bootstrap: [AppComponent]

@@ -6,18 +6,46 @@ var path = require('path');
 var config = require('../config');
 var kon = config.getDBconnection();
 
+/*select
+	art_show_gr.naziv,
+	articles.name,
+	articles.id
+from 
+	articles, art_show_gr
+where 
+	articles.prikaz_group_id = art_show_gr.id 
+order by 
+    art_show_gr.naziv, articles.name;*/
 
+
+/*select  
+	art_show_gr.naziv,
+	articles.name,
+	articles.id
+from 
+	articles, art_show_gr
+where 
+articles.prikaz_group_id = art_show_gr.id
+union all
+select  
+	naziv,
+	null as name,
+	null as id
+from 
+	art_show_gr
+order by 
+naziv, name;*/
 router.get('/artikli', function(req, res, next){
     kon.query(`select
-                    art_show_gr.naziv,
-                    articles.name,
-                    articles.id
-                from 
-                    articles, art_show_gr
-                where 
-                    articles.prikaz_group_id = art_show_gr.id 
-                order by 
-                    art_show_gr.naziv, articles.name`,
+	art_show_gr.naziv,
+	articles.name,
+	articles.id
+from 
+	articles, art_show_gr
+where 
+	articles.prikaz_group_id = art_show_gr.id 
+order by 
+    art_show_gr.naziv, articles.name`,
         function(error, results){
                 if(error) {
                     return res.status(500).json({

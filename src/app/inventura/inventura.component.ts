@@ -10,15 +10,30 @@ import { InventuraService } from './inventura.service';
 })
 @Injectable()
 export class InventuraComponent implements OnInit {
-  @Input() articles : Article[];
+  @Input() artikli : Article[];
   @Input() grupe = [] ;
-  constructor(private inventuraService: InventuraService) { }
+  @Input() isOpen: boolean;
 
+  kreiraj;
+
+  constructor(private inventuraService: InventuraService) { }
+ 
   ngOnInit() {
     this.inventuraService.getGrupeArtikala()
     .subscribe(
       (grupe = []) => {this.grupe = grupe}
     );
+    this.inventuraService.getArtikle()
+    .subscribe(
+      (artikli = []) => {this.artikli = artikli}
+    );
+  }
+  KreirajInventuru(): void {
+    if (this.kreiraj){
+      this.kreiraj = null;
+    }else{
+      this.kreiraj = 1;
+    }
   }
 
 }
