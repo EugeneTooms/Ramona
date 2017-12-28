@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Dobavljac } from './dobavljac.model';
+import { DobavljacService } from './dobavljac.service';
 
 @Component({
   selector: 'app-dobavljac',
@@ -6,10 +8,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dobavljac.component.css']
 })
 export class DobavljacComponent implements OnInit {
+  @Input() dobavljaci : Dobavljac[]
 
-  constructor() { }
+  constructor(private dobavljacService : DobavljacService) { }
 
   ngOnInit() {
+    this.dobavljacService.getDobavljace()
+    .subscribe(
+      (dobavljaci = []) => {this.dobavljaci = dobavljaci}
+    );
   }
 
 }

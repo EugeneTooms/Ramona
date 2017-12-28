@@ -76,6 +76,22 @@ router.get('/grupeartikala', function(req, res, next){
         }
     );
 });
+router.get('/dobavljaci', function(req, res, next){
+    kon.query('SELECT * from suppliers',
+        function(error, results){
+                if(error) {
+                    return res.status(500).json({
+                        title: 'An error has occured',
+                        error : error
+                    });
+                }			
+                res.status(200).json({
+                    message: 'Success',
+                    obj: results
+                });
+        }
+    );
+});
 
 // router.get('/articles', function(req, res, next){
 //     kon.query('SELECT * from articles',

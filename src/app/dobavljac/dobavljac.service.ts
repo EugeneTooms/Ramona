@@ -16,9 +16,10 @@ export class DobavljacService{
                 const dobavljaci = response.json().obj;
                 let transformedDobavljaci: Dobavljac[] = [];
                 for (let dobavljac of dobavljaci){
-                    transformedDobavljaci.push(new Dobavljac(dobavljac.id, dobavljac.naziv));
+                    transformedDobavljaci.push(new Dobavljac(dobavljac.id, dobavljac.name));
                 }
                 this.dobavljaci = transformedDobavljaci;
+                console.log(transformedDobavljaci);
                 return transformedDobavljaci;
             })
             .catch((error: Response) => Observable.throw(error.json()) 

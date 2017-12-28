@@ -7,8 +7,8 @@
         </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>NAme</td>
+      <tr *ngFor='let dobavljac of dobavljaci'>
+        <td>{{dobavljac.naziv}}</td>
         <td><button class="btn btn-info btn-sm">Select</button></td>
       </tr>
     </tbody>
