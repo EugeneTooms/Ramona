@@ -93,6 +93,14 @@ router.get('/dobavljaci', function(req, res, next){
     );
 });
 
+router.post('/inventura', function(req, res, next){
+    console.log(req.body);
+    return res.status(201).json({
+        message : 'Inventura spremljena',
+        obj : req.body.content
+    });
+});
+
 // router.get('/articles', function(req, res, next){
 //     kon.query('SELECT * from articles',
 //         function(error, results){

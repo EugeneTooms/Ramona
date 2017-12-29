@@ -1,5 +1,7 @@
 @rem Neki komentar.
+@echo off
 call git.exe pull
 ng build
-nodemon bin\www
 start "" http://localhost:2000
+nodemon bin\www
+@pause

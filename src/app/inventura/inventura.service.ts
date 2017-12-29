@@ -16,7 +16,7 @@ export class InventuraService{
                 const artikli = response.json().obj;
                 let transformedArtikli: Article[] = [];
                 for (let artikal of artikli){
-                    transformedArtikli.push(new Article(artikal.id, artikal.name, artikal.naziv));
+                    transformedArtikli.push(new Article(artikal.id, artikal.name, artikal.naziv, artikal.name, artikal.id, artikal.id));
                 }
                 this.artikli = transformedArtikli;
                 return transformedArtikli;
@@ -31,6 +31,14 @@ export class InventuraService{
                 return grupe;
             })
             .catch((error: Response) => Observable.throw(error.json()) 
+        );
+    }
+    dodajInventuru(datum, artikli: Article[]){
+        const body = JSON.stringify({datum : datum, artikli: artikli});
+        const headers = new Headers({'Content-Type':'application/json'});
+        return this.http.post('http://localhost:2000/html/inventura', body, {headers: headers})
+            .map((response : Response) => response.json() )
+            .catch((error: Response) => Observable.throw(error.json())
         );
     }
 }

@@ -1,29 +1,42 @@
-<div class="col-6">
-  <input class="form-control col-6" type="date" value="" id="Datum" name="Datum">
-  <button (click)="KreirajInventuru()" type="submit" class="btn btn-default col-6 float-left">Kreiraj</button>
+<div class="col-12">
+  <form (ngSubmit)="Send(datumForma)" #datumForma="ngForm" ngNativeValidate>
+    <input ngModel class="form-control col-9" type="date" value="" id="Datum" name="Datum" required>
+    <br>
+    <button type="button" (click)="KreirajInventuru(datumForma)" [disabled]="!datumForma.valid" class="btn btn-default col-6 float-left">Kreiraj</button>
 
-</div>
+
 <br>
 <br>
-<accordion *ngIf="kreiraj">
+<accordion *ngIf="DatumInventure">
     <accordion-group *ngFor='let grup of grupe' [heading]='grup.naziv' [index]='grup.id'>
       <span>
           <table class="table">
               <thead>
                     <tr>
-                      <th scope="col">Artikal ID</th>
-                      <th scope="col">Grupa</th>
-                      <th scope="col">Artikal Naziv</th>
+                      <th scope="col">Naziv</th>
+                      <th scope="col">Staro Stanje</th>
+                      <th scope="col">Novo Stanje</th>
                     </tr>
               </thead>
               <tbody>
-                    <tr *ngFor='let artikal of artikli | filter : "grupa" : grup.naziv'>
-                      <td>{{artikal.id}}</td>
-                      <td>{{artikal.grupa}}</td>
+                    <tr *ngFor='let artikal of artikli | filter : "grupa" : grup.naziv; let i = index '>
                       <td>{{artikal.naziv}}</td>
+                      <td>{{artikal.postojece_stanje}}</td>
+                      <td>
+                        <div class="input-group">
+                          <button (click)="DodajStanje(artikal)" type="button" class="input-group-addon btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                          <input [(ngModel)]="artikal.novo_stanje" class="form-control col-4" type="number" placeholder="{{artikal.novo_stanje}}" value="{{artikal.novo_stanje}}" id="kolicina_{{artikal.id}}" step=".01" name="kolicina_{{artikal.id}}">
+                          <button (click)="OduzmiStanje(artikal)" type="button" class="input-group-addon btn btn-danger"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                        </div>
+                      </td>
                     </tr>
               </tbody>
           </table>
       </span>
     </accordion-group>
+    <br>
+    <button  type="submit" class="btn btn-success col-6 float-right">Spremi</button>
+    <button (click)="Otkazi(datumForma)" type="button" class="btn btn-danger col-6 float-right">Odustani</button>
 </accordion>
+</form>
+</div>

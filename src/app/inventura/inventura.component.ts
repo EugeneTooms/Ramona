@@ -1,7 +1,8 @@
 import { Component, OnInit, Input, Injectable } from '@angular/core';
+import { NgForm } from '@angular/forms';
+
 import { Article } from './article.model';
 import { InventuraService } from './inventura.service';
-
 
 @Component({
   selector: 'app-inventura',
@@ -14,7 +15,7 @@ export class InventuraComponent implements OnInit {
   @Input() grupe = [] ;
   @Input() isOpen: boolean;
 
-  kreiraj;
+  DatumInventure;
 
   constructor(private inventuraService: InventuraService) { }
  
@@ -28,12 +29,29 @@ export class InventuraComponent implements OnInit {
       (artikli = []) => {this.artikli = artikli}
     );
   }
-  KreirajInventuru(): void {
-    if (this.kreiraj){
-      this.kreiraj = null;
-    }else{
-      this.kreiraj = 1;
-    }
+  KreirajInventuru(datumForma: NgForm)  {
+    this.DatumInventure = datumForma.value.Datum;
+  }
+  Otkazi(datumForma: NgForm){
+    datumForma.reset();
+    this.DatumInventure = null;
+  }
+  DodajStanje(artikal : Article){
+    artikal.novo_stanje += 1;
+  }
+  OduzmiStanje(artikal : Article){
+    artikal.novo_stanje -= 1;
+  }
+  Send(datumForma: NgForm){
+    //console.log(datumForma);
+    //console.log(this.artikli);
+    this.inventuraService.dodajInventuru(this.DatumInventure, this.artikli)
+      .subscribe(
+        data => console.log(data),
+        error => console.error(error)
+      );
+    datumForma.reset();
+    this.DatumInventure = null;
   }
 
 }
