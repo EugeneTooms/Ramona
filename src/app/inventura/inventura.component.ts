@@ -38,10 +38,12 @@ export class InventuraComponent implements OnInit {
   }
 
   DodajStanje(artikal : Article){
-    artikal.novo_stanje += 1;
+    artikal.stanje += 1;
+    artikal.razlika = artikal.novo_stanje - artikal.stanje;
   }
   OduzmiStanje(artikal : Article){
-    artikal.novo_stanje -= 1;
+    artikal.stanje -= 1;
+    artikal.razlika = artikal.novo_stanje - artikal.stanje;
   }
   Otkazi(){
     this.myForm.reset();
