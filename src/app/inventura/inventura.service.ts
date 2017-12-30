@@ -23,8 +23,8 @@ export class InventuraService{
                         artikal.postojece_stanje, 
                         artikal.ulazi, 
                         artikal.izlazi,
-                        artikal.postojece_stanje + artikal.ulazi - artikal.izlazi,
-                        artikal.postojece_stanje + artikal.ulazi - artikal.izlazi,
+                        Math.round( (artikal.postojece_stanje + artikal.ulazi - artikal.izlazi) * 10) / 10,
+                        Math.round( (artikal.postojece_stanje + artikal.ulazi - artikal.izlazi) * 10) / 10,
                         0));
                 }
                 this.artikli = transformedArtikli;
