@@ -6,7 +6,7 @@ import { AccordionComponent } from '../accordion.component';
   styleUrls: ['./accordion-group.component.scss'],
   template: `
     <div class="accordion-group" [ngClass]="{'closed': !isOpen}">
-      <div class="panel-heading" (click)="toggleOpen()">
+      <div class="col-12 btn btn-light panel-heading" (click)="toggleOpen()">
         <span>{{heading}}</span>
       </div>
       <div class="panel-collapse">

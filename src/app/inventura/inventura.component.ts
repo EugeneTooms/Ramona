@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Injectable } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { Article } from './article.model';
 import { InventuraService } from './inventura.service';
@@ -11,6 +11,7 @@ import { InventuraService } from './inventura.service';
 })
 @Injectable()
 export class InventuraComponent implements OnInit {
+  myForm: FormGroup;
   @Input() artikli : Article[];
   @Input() grupe = [] ;
   @Input() isOpen: boolean;
@@ -20,6 +21,9 @@ export class InventuraComponent implements OnInit {
   constructor(private inventuraService: InventuraService) { }
  
   ngOnInit() {
+    this.myForm = new FormGroup({
+      datum: new FormControl(null, Validators.required)
+    });
     this.inventuraService.getGrupeArtikala()
     .subscribe(
       (grupe = []) => {this.grupe = grupe}
@@ -29,28 +33,27 @@ export class InventuraComponent implements OnInit {
       (artikli = []) => {this.artikli = artikli}
     );
   }
-  KreirajInventuru(datumForma: NgForm)  {
-    this.DatumInventure = datumForma.value.Datum;
+  KreirajInventuru()  {
+    this.DatumInventure = this.myForm.value.datum;
   }
-  Otkazi(datumForma: NgForm){
-    datumForma.reset();
-    this.DatumInventure = null;
-  }
+
   DodajStanje(artikal : Article){
     artikal.novo_stanje += 1;
   }
   OduzmiStanje(artikal : Article){
     artikal.novo_stanje -= 1;
   }
-  Send(datumForma: NgForm){
-    //console.log(datumForma);
-    //console.log(this.artikli);
+  Otkazi(){
+    this.myForm.reset();
+    this.DatumInventure = null;
+  }
+  Send(){
     this.inventuraService.dodajInventuru(this.DatumInventure, this.artikli)
       .subscribe(
         data => console.log(data),
         error => console.error(error)
       );
-    datumForma.reset();
+    this.myForm.reset();
     this.DatumInventure = null;
   }
 

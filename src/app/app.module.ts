@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { FormsModule } from '@angular/forms'
+import { ReactiveFormsModule, FormsModule } from '@angular/forms'
 
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
@@ -30,6 +30,7 @@ import { FilterPipe } from './filter.pipe';
     routing,
     HttpModule,
     FormsModule,
+    ReactiveFormsModule,
     AccordionModule
   ],
   providers: [DobavljacService,InventuraService],

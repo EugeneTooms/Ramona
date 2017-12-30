@@ -11,7 +11,7 @@ export class DobavljacService{
     constructor (private http : Http){}
 
     getDobavljace(){
-        return this.http.get('http://localhost:2000/html/dobavljaci')
+        return this.http.get('http://localhost:2000/ang/dobavljaci')
             .map((response : Response) => {
                 const dobavljaci = response.json().obj;
                 let transformedDobavljaci: Dobavljac[] = [];

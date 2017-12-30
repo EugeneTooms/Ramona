@@ -34,7 +34,10 @@ select
 from 
 	art_show_gr
 order by 
-naziv, name;*/
+naziv, name;
+bot_inventura_in_out
+
+*/
 router.get('/artikli', function(req, res, next){
     kon.query(`select
 	art_show_gr.naziv,
@@ -95,10 +98,24 @@ router.get('/dobavljaci', function(req, res, next){
 
 router.post('/inventura', function(req, res, next){
     console.log(req.body);
-    return res.status(201).json({
-        message : 'Inventura spremljena',
-        obj : req.body.content
-    });
+        kon.query('INSERT INTO inventura SET ?', req.body,
+        function(error, results){
+                if(error) {
+                    return res.status(500).json({
+                        title: 'An error has occured',
+                        error : error
+                    });
+                }			
+                res.status(200).json({
+                    message: 'Inventura spremljena',
+                    obj: results
+                });
+            }
+        );
+    // return res.status(201).json({
+    //     message : 'Inventura spremljena',
+    //     obj : req.body.content
+    // });
 });
 
 // router.get('/articles', function(req, res, next){

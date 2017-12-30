@@ -11,12 +11,21 @@ export class InventuraService{
     constructor (private http : Http){}
 
     getArtikle(){
-        return this.http.get('http://localhost:2000/html/artikli')
+        return this.http.get('http://localhost:2000/ang/artikli')
             .map((response : Response) => {
                 const artikli = response.json().obj;
                 let transformedArtikli: Article[] = [];
                 for (let artikal of artikli){
-                    transformedArtikli.push(new Article(artikal.id, artikal.name, artikal.naziv, artikal.name, artikal.id, artikal.id));
+                    transformedArtikli.push(new Article(
+                        artikal.id, 
+                        artikal.name, 
+                        artikal.naziv, 
+                        artikal.postojece_stanje, 
+                        artikal.doslo, 
+                        artikal.prodano,
+                        artikal.postojece_stanje + artikal.doslo - artikal.prodano,
+                        artikal.postojece_stanje + artikal.doslo - artikal.prodano,
+                        0));
                 }
                 this.artikli = transformedArtikli;
                 return transformedArtikli;
@@ -25,7 +34,7 @@ export class InventuraService{
         );
     }
     getGrupeArtikala(){
-        return this.http.get('http://localhost:2000/html/grupeartikala')
+        return this.http.get('http://localhost:2000/ang/grupeartikala')
             .map((response : Response) => {
                 const grupe = response.json().obj;
                 return grupe;
@@ -36,7 +45,7 @@ export class InventuraService{
     dodajInventuru(datum, artikli: Article[]){
         const body = JSON.stringify({datum : datum, artikli: artikli});
         const headers = new Headers({'Content-Type':'application/json'});
-        return this.http.post('http://localhost:2000/html/inventura', body, {headers: headers})
+        return this.http.post('http://localhost:2000/ang/inventura', body, {headers: headers})
             .map((response : Response) => response.json() )
             .catch((error: Response) => Observable.throw(error.json())
         );

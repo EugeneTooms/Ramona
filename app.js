@@ -6,7 +6,7 @@ var bodyParser = require('body-parser');
 
 //moji paketi
 var index = require('./routes');
-var htmlcontroler = require('./controler/htmlcontroler');
+var angcontroler = require('./controler/angcontroler');
 
 var app = express();
 
@@ -24,7 +24,7 @@ app.use(function(req,res,next){
     next();
   });
 
-app.use('/html',htmlcontroler);
+app.use('/ang', angcontroler);
 app.use('/', index);
 
 // catch 404 and redirect to root
