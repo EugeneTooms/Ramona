@@ -44,16 +44,16 @@ router.get('/inventura/artikli', function(req, res, next){
     kon.query(`select
     articles.id,
     articles.name,
-    art_show_gr.naziv as grupa,
-    (bot_inventura_in_out.ulazi - bot_inventura_in_out.izlazi ) as postojece_stanje,
-	bot_inventura_in_out.ulazi,
-	bot_inventura_in_out.izlazi
+	art_show_gr.naziv as grupa,
+    ROUND((bot_inventura_in_out.ulazi - bot_inventura_in_out.izlazi ), 2 ) as  postojece_stanje,
+	ROUND(bot_inventura_in_out.ulazi, 2),
+	ROUND(bot_inventura_in_out.izlazi, 2)
 from 
 	articles, art_show_gr, bot_inventura_in_out
 where 
 	articles.prikaz_group_id = art_show_gr.id && articles.id = bot_inventura_in_out.article_id
 order by 
-    art_show_gr.naziv, articles.name;`,
+    art_show_gr.naziv, articles.name`,
         function(error, results){
                 if(error) {
                     return res.status(500).json({
