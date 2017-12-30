@@ -53,7 +53,7 @@ from
 where 
 	articles.prikaz_group_id = art_show_gr.id && articles.id = bot_inventura_in_out.article_id
 order by 
-    art_show_gr.naziv, articles.name`,
+    art_show_gr.naziv, articles.name;`,
         function(error, results){
                 if(error) {
                     return res.status(500).json({
