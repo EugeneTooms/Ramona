@@ -11,7 +11,7 @@ export class InventuraService{
     constructor (private http : Http){}
 
     getArtikle(){
-        return this.http.get('http://localhost:2000/ang/artikli')
+        return this.http.get('http://localhost:2000/ang/inventura/artikli')
             .map((response : Response) => {
                 const artikli = response.json().obj;
                 let transformedArtikli: Article[] = [];
@@ -19,12 +19,12 @@ export class InventuraService{
                     transformedArtikli.push(new Article(
                         artikal.id, 
                         artikal.name, 
-                        artikal.naziv, 
+                        artikal.grupa, 
                         artikal.postojece_stanje, 
-                        artikal.doslo, 
-                        artikal.prodano,
-                        artikal.postojece_stanje + artikal.doslo - artikal.prodano,
-                        artikal.postojece_stanje + artikal.doslo - artikal.prodano,
+                        artikal.ulazi, 
+                        artikal.izlazi,
+                        artikal.postojece_stanje + artikal.ulazi - artikal.izlazi,
+                        artikal.postojece_stanje + artikal.ulazi - artikal.izlazi,
                         0));
                 }
                 this.artikli = transformedArtikli;

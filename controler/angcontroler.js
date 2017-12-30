@@ -7,11 +7,13 @@ var config = require('../config');
 var kon = config.getDBconnection();
 
 /*select
+    articles.id
+    articles.name,
 	art_show_gr.naziv,
-	articles.name,
-	articles.id
+	bot_inventura_in_out.ulazi,
+	bot_inventura_in_out.izlazi
 from 
-	articles, art_show_gr
+	articles, art_show_gr, bot_inventura_in_out
 where 
 	articles.prikaz_group_id = art_show_gr.id 
 order by 
@@ -38,17 +40,19 @@ naziv, name;
 bot_inventura_in_out
 
 */
-router.get('/artikli', function(req, res, next){
+router.get('/inventura/artikli', function(req, res, next){
     kon.query(`select
-	art_show_gr.naziv,
-	articles.name,
-	articles.id
+    articles.id,
+    articles.name,
+	art_show_gr.naziv as grupa,
+	bot_inventura_in_out.ulazi,
+	bot_inventura_in_out.izlazi
 from 
-	articles, art_show_gr
+	articles, art_show_gr, bot_inventura_in_out
 where 
-	articles.prikaz_group_id = art_show_gr.id 
+	articles.prikaz_group_id = art_show_gr.id && articles.id = bot_inventura_in_out.article_id
 order by 
-    art_show_gr.naziv, articles.name`,
+    art_show_gr.naziv, articles.name;`,
         function(error, results){
                 if(error) {
                     return res.status(500).json({

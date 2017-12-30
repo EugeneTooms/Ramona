@@ -1,9 +1,9 @@
 <div class="col-12">
-  <form [formGroup]="myForm" (ngSubmit)="KreirajInventuru()">
+  <form [formGroup]="myForm" (ngSubmit)="KreirajInventuru()" ngNativeValidate>
     <div class="form-group">
       <input formControlName="datum" class="form-control col-9" type="date" id="datum" name="datum">
       <br>
-      <button type="button" type="submit" class="btn btn-default col-6 float-left">Kreiraj</button>
+      <button type="button" type="submit" [disabled]="!myForm.valid" class="btn btn-default col-6 float-left">Kreiraj</button>
     </div>
   </form>
 <br>
