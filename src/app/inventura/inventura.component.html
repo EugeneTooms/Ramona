@@ -33,7 +33,7 @@
                       <td>
                         <div class="input-group">
                           <button (click)="DodajStanje(artikal)" type="button" class="input-group-addon btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i></button>
-                          <input [(ngModel)]="artikal.stanje" class="form-control col-4" type="number" placeholder="{{artikal.stanje}}" value="{{artikal.stanje}}" id="kolicina_{{artikal.id}}" step=".01" name="kolicina_{{artikal.id}}">
+                          <input [(ngModel)]="artikal.stanje" class="form-control col-4" type="number" placeholder="{{artikal.stanje}}" value="{{artikal.stanje}}" id="kolicina_{{artikal.id}}" step=".01" name="kolicina_{{artikal.id}}" (input)="onChange(artikal, $event.target.value)">
                           <button (click)="OduzmiStanje(artikal)" type="button" class="input-group-addon btn btn-danger"><i class="fa fa-minus" aria-hidden="true"></i></button>
                         </div>
                       </td>

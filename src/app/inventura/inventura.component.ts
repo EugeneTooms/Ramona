@@ -45,6 +45,10 @@ export class InventuraComponent implements OnInit {
     artikal.stanje -= 1;
     artikal.razlika = artikal.novo_stanje - artikal.stanje;
   }
+  onChange(artikal : Article, broj : number){
+    artikal.stanje = broj;
+    artikal.razlika = artikal.novo_stanje - artikal.stanje;
+  }
   Otkazi(){
     this.myForm.reset();
     this.DatumInventure = null;
