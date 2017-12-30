@@ -44,7 +44,8 @@ router.get('/inventura/artikli', function(req, res, next){
     kon.query(`select
     articles.id,
     articles.name,
-	art_show_gr.naziv as grupa,
+    art_show_gr.naziv as grupa,
+    (bot_inventura_in_out.ulazi - bot_inventura_in_out.izlazi ) as postojece_stanje,
 	bot_inventura_in_out.ulazi,
 	bot_inventura_in_out.izlazi
 from 
