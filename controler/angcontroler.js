@@ -46,8 +46,8 @@ router.get('/inventura/artikli', function(req, res, next){
     articles.name,
 	art_show_gr.naziv as grupa,
     ROUND((bot_inventura_in_out.ulazi - bot_inventura_in_out.izlazi ), 2 ) as  postojece_stanje,
-	ROUND(bot_inventura_in_out.ulazi, 2),
-	ROUND(bot_inventura_in_out.izlazi, 2)
+	ROUND(bot_inventura_in_out.ulazi, 2) as ulazi,
+	ROUND(bot_inventura_in_out.izlazi, 2) as izlazi
 from 
 	articles, art_show_gr, bot_inventura_in_out
 where 
