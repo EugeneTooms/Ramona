@@ -42,8 +42,8 @@ export class InventuraService{
             .catch((error: Response) => Observable.throw(error.json()) 
         );
     }
-    dodajInventuru(datum, artikli: Article[]){
-        const body = JSON.stringify({datum : datum, artikli: artikli});
+    dodajInventuru(artikli: Article[]){
+        const body = JSON.stringify(artikli);
         const headers = new Headers({'Content-Type':'application/json'});
         return this.http.post('http://localhost:2000/ang/inventura', body, {headers: headers})
             .map((response : Response) => response.json() )

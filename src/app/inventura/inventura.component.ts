@@ -63,7 +63,7 @@ export class InventuraComponent implements OnInit {
     this.DatumInventure = null;
   }
   Send(){
-    this.inventuraService.dodajInventuru(this.DatumInventure, this.artikli)
+    this.inventuraService.dodajInventuru(this.artikli)
       .subscribe(
         data => console.log(data),
         error => console.error(error)
