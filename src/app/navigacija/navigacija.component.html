@@ -1,5 +1,28 @@
 <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
-  <ul class="nav nav-pills flex-column">
+<ul class="nav nav-pills">
+    <accordion>
+      <accordion-group class="nav-item" heading="Ulazi" index=0>
+        <span>
+              <a class="nav-link" href="#">Primke</a>
+              <a class="nav-link" routerLinkActive="active" [routerLink]="['/inventura']">Inventura</a>
+              <a class="nav-link" routerLinkActive="active" [routerLink]="['/dobavljaci']">Dobavljaci</a>
+        </span>
+      </accordion-group>
+      <hr>
+      <accordion-group class="nav-item" heading="Izlazi" index=0>
+        <span>
+                <a class="nav-link" href="#">Izlazi stavka</a>
+        </span>
+      </accordion-group>
+      <hr>
+      <accordion-group class="nav-item" heading="Analitika" index=0>
+          <span>
+                <a class="nav-link" href="#">Analitika stavka</a>
+          </span>
+        </accordion-group>
+    </accordion>
+  </ul>
+  <!-- <ul class="nav nav-pills flex-column">
     <li class="nav-item">
       <a class="nav-link" href="#">Ulazi</a>
     </li>
@@ -15,14 +38,13 @@
     <li class="nav-item">
       <a class="nav-link" routerLinkActive="active" [routerLink]="['/dobavljaci']">Dobavljaci</a>
     </li>
-  </ul>
+  </ul> -->
 </nav>
 
-<accordion *ngIf="DatumInventure">
-  <accordion-group *ngFor='let grup of grupe' [heading]='grup.naziv' [index]='grup.id'>
+<!-- <accordion>
+  <accordion-group class="nav-item" heading="Ulazi" index=0>
     <span>
+        <a class="nav-link" href="#">Primke</a>
     </span>
   </accordion-group>
-  <br>
-
-</accordion>
+</accordion> -->
