@@ -102,8 +102,23 @@ router.get('/dobavljaci', function(req, res, next){
 });
 
 router.post('/inventura', function(req, res, next){
-    console.log(req.body);
-        kon.query('INSERT INTO inventory_post SET ?', req.body,
+    var data = [];
+    var jsondata = req.body;
+    for (let i=0;i<jsondata.length; i++){
+        data.push([jsondata[i].datum,
+            jsondata[i].id,
+            jsondata[i].naziv,
+            jsondata[i].grupa,
+            jsondata[i].postojece_stanje,
+            jsondata[i].doslo,
+            jsondata[i].prodano,
+            jsondata[i].novo_stanje,
+            jsondata[i].stanje,
+            jsondata[i].razlika]);
+    }
+    console.log(data);
+
+        kon.query('INSERT INTO inventory_post VALUES ?', [data],
         function(error, results){
                 if(error) {
                     return res.status(500).json({
