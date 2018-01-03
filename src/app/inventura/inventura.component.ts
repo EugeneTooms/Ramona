@@ -24,17 +24,26 @@ export class InventuraComponent implements OnInit {
     this.myForm = new FormGroup({
       datum: new FormControl(null, Validators.required)
     });
+    // this.inventuraService.getGrupeArtikala()
+    // .subscribe(
+    //   (grupe = []) => {this.grupe = grupe}
+    // );
+    // this.inventuraService.getArtikle()
+    // .subscribe(
+    //   (artikli = []) => {this.artikli = artikli}
+    // );
+  }
+  KreirajInventuru()  {
+    this.DatumInventure = this.myForm.value.datum;
+
     this.inventuraService.getGrupeArtikala()
     .subscribe(
       (grupe = []) => {this.grupe = grupe}
     );
-    this.inventuraService.getArtikle()
+    this.inventuraService.getArtikle(this.DatumInventure)
     .subscribe(
       (artikli = []) => {this.artikli = artikli}
     );
-  }
-  KreirajInventuru()  {
-    this.DatumInventure = this.myForm.value.datum;
   }
 
   DodajStanje(artikal : Article){

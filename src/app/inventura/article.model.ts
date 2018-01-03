@@ -1,5 +1,6 @@
 export class Article{
-    constructor(public id : number,
+    constructor(public datum : Date,
+                public id : number,
                 public naziv? : string,
                 public grupa? : string,       
                 public postojece_stanje? : number,

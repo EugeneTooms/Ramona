@@ -17,3 +17,12 @@
     </li>
   </ul>
 </nav>
+
+<accordion *ngIf="DatumInventure">
+  <accordion-group *ngFor='let grup of grupe' [heading]='grup.naziv' [index]='grup.id'>
+    <span>
+    </span>
+  </accordion-group>
+  <br>
+
+</accordion>

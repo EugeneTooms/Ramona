@@ -10,13 +10,13 @@ export class InventuraService{
     private artikli : Article[] = [];
     constructor (private http : Http){}
 
-    getArtikle(){
+    getArtikle(date: Date){
         return this.http.get('http://localhost:2000/ang/inventura/artikli')
             .map((response : Response) => {
                 const artikli = response.json().obj;
                 let transformedArtikli: Article[] = [];
                 for (let artikal of artikli){
-                    transformedArtikli.push(new Article(
+                    transformedArtikli.push(new Article(date,
                         artikal.id, 
                         artikal.name, 
                         artikal.grupa, 

@@ -103,7 +103,7 @@ router.get('/dobavljaci', function(req, res, next){
 
 router.post('/inventura', function(req, res, next){
     console.log(req.body);
-        kon.query('INSERT INTO inventura SET ?', req.body,
+        kon.query('INSERT INTO inventory_post SET ?', req.body,
         function(error, results){
                 if(error) {
                     return res.status(500).json({
@@ -117,6 +117,27 @@ router.post('/inventura', function(req, res, next){
                 });
             }
         );
+// CREATE TABLE inventory_post 
+// (
+// inventory_date date,
+
+// article_id integer,
+
+// article_name char(20),
+
+// article_group char(20),
+
+// previous_count decimal(5,2),
+
+// incoming_count decimal(5,2),
+
+// sold_count decimal(5,2),
+
+// current_count_system decimal(5,2),
+
+// current_count_physical decimal(5,2),
+
+// current_count_difference decimal(5,2)
     // return res.status(201).json({
     //     message : 'Inventura spremljena',
     //     obj : req.body.content
