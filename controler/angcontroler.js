@@ -100,6 +100,22 @@ router.get('/dobavljaci', function(req, res, next){
         }
     );
 });
+router.get('/primke', function(req, res, next){
+    kon.query('SELECT * from receivings',
+        function(error, results){
+                if(error) {
+                    return res.status(500).json({
+                        title: 'An error has occured',
+                        error : error
+                    });
+                }			
+                res.status(200).json({
+                    message: 'Success',
+                    obj: results
+                });
+        }
+    );
+});
 
 router.post('/inventura', function(req, res, next){
     var data = [];

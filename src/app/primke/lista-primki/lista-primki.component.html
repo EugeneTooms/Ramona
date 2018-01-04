@@ -1,0 +1,19 @@
+
+<table class="table table-hover table-fit">
+    <thead>
+        <tr>
+            <th>Broj</th>
+            <th>Dobavljač</th>
+            <th>Datum Unosa</th>
+            <th>Datum Primke</th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor='let primka of primke'>
+        <td>{{primka.number}}</td>
+        <td *ngFor='let dobavljac of dobavljaci | filter : "id" : primka.dobavljac_id'>{{dobavljac.naziv}}</td>
+        <td>{{primka.date}}</td>
+        <td>{{primka.document_date}}</td>
+      </tr>
+    </tbody>
+</table>

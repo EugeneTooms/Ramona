@@ -5,35 +5,28 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms'
 
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
-import { PrimkeComponent } from './primke/primke.component';
-import { DobavljacComponent } from './dobavljac/dobavljac.component';
-import { DobavljacService } from './dobavljac/dobavljac.service';
 import { NavigacijaComponent } from './navigacija/navigacija.component';
-import { InventuraComponent } from './inventura/inventura.component';
-import { InventuraService } from './inventura/inventura.service';
-import { AccordionModule } from './accordion/accordion.module';
-import { FilterPipe } from './filter.pipe';
 
 
+import { NavigacijaModule } from './navigacija/navigacija.module';
+import { PrimkeModule } from './primke/primke.module';
+import { InventuraModule } from './inventura/inventura.module';
+import { DobavljacModule } from './dobavljac/dobavljac.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    PrimkeComponent,
-    DobavljacComponent,
-    NavigacijaComponent,
-    InventuraComponent,
-    FilterPipe
+    AppComponent  
   ],
   imports: [
     BrowserModule,
     routing,
     HttpModule,
-    FormsModule,
-    ReactiveFormsModule,
-    AccordionModule
+    NavigacijaModule,
+    PrimkeModule,
+    DobavljacModule,
+    InventuraModule
   ],
-  providers: [DobavljacService,InventuraService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
