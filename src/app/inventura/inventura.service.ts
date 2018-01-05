@@ -1,5 +1,6 @@
 import { Http, Response, Headers} from '@angular/http'
 import { Injectable, EventEmitter } from '@angular/core';
+import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/Rx';
 
@@ -11,7 +12,7 @@ export class InventuraService{
     constructor (private http : Http){}
 
     getArtikle(date: Date){
-        return this.http.get('http://localhost:2000/ang/inventura/artikli')
+        return this.http.get(environment.apiURL +'inventura/artikli')
             .map((response : Response) => {
                 const artikli = response.json().obj;
                 let transformedArtikli: Article[] = [];
@@ -34,7 +35,7 @@ export class InventuraService{
         );
     }
     getGrupeArtikala(){
-        return this.http.get('http://localhost:2000/ang/grupeartikala')
+        return this.http.get( environment.apiURL + 'grupeartikala')
             .map((response : Response) => {
                 const grupe = response.json().obj;
                 return grupe;
@@ -45,7 +46,7 @@ export class InventuraService{
     dodajInventuru(artikli: Article[]){
         const body = JSON.stringify(artikli);
         const headers = new Headers({'Content-Type':'application/json'});
-        return this.http.post('http://localhost:2000/ang/inventura', body, {headers: headers})
+        return this.http.post(environment.apiURL + 'inventura', body, {headers: headers})
             .map((response : Response) => response.json() )
             .catch((error: Response) => Observable.throw(error.json())
         );

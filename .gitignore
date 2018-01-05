@@ -36,6 +36,7 @@ yarn-error.log
 
 # konfig za spajanje na bazu
 /config
+/environments
 
 # e2e
 /e2e/*.js

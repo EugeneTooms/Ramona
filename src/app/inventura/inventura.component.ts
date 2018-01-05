@@ -36,7 +36,7 @@ export class InventuraComponent implements OnInit {
   }
   KreirajInventuru()  {
     this.DatumInventure = this.myForm.value.datum;
-
+    console.log(this.DatumInventure);
     this.inventuraService.getGrupeArtikala()
     .subscribe(
       (grupe = []) => {this.grupe = grupe}

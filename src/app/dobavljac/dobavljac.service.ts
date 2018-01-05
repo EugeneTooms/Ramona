@@ -1,5 +1,6 @@
 import { Http, Response, Headers} from '@angular/http'
 import { Injectable, EventEmitter } from '@angular/core';
+import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/Rx';
 
@@ -11,7 +12,7 @@ export class DobavljacService{
     constructor (private http : Http){}
 
     getDobavljace(){
-        return this.http.get('http://localhost:2000/ang/dobavljaci')
+        return this.http.get( environment.apiURL +'dobavljaci')
             .map((response : Response) => {
                 const dobavljaci = response.json().obj;
                 let transformedDobavljaci: Dobavljac[] = [];

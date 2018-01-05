@@ -1,15 +1,17 @@
 import { Http, Response, Headers} from '@angular/http'
 import { Injectable, EventEmitter } from '@angular/core';
+import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/Rx';
 import { Primka } from './primka.model';
+
 
 @Injectable()
 export class PrimkeService {
   private Primke : Primka[];
   constructor(private http : Http) { }
   getPrimke(){
-    return this.http.get('http://localhost:2000/ang/primke')
+    return this.http.get( environment.apiURL + 'primke')
         .map((response : Response) => {
             const primke = response.json().obj;
             let transformedPrimke: Primka[] = [];
