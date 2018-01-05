@@ -11,7 +11,8 @@
     <tbody>
       <tr *ngFor='let primka of primke'>
         <td>{{primka.number}}</td>
-        <td *ngFor='let dobavljac of dobavljaci | filter : "id" : primka.dobavljac_id'>{{dobavljac.naziv}}</td>
+        <!-- <td *ngFor='let dobavljac of dobavljaci | filter : "id" : primka.dobavljac_id'>{{dobavljac.naziv}}</td> -->
+        <td>{{primka.dobavljac_id}}</td>
         <td>{{primka.date}}</td>
         <td>{{primka.document_date}}</td>
       </tr>

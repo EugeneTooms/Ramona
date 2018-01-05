@@ -3,6 +3,7 @@
     max-width: 100%;
 }
 .table-fit {
+    white-space: nowrap;
     width: 1px;
 }
 input.ng-invalid.ng-touched{
