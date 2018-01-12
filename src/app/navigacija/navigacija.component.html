@@ -3,9 +3,9 @@
     <accordion>
       <accordion-group class="nav-item" heading="Ulazi" index=0>
         <span>
-              <a class="nav-link" routerLinkActive="active" [routerLink]="['/primke']">Primke</a>
-              <a class="nav-link" routerLinkActive="active" [routerLink]="['/inventura']">Inventura</a>
-              <a class="nav-link" routerLinkActive="active" [routerLink]="['/dobavljaci']">Dobavljaci</a>
+              <a class="nav-link" routerLinkActive="active" [routerLink]="['/ulazi/primke']">Primke</a>
+              <a class="nav-link" routerLinkActive="active" [routerLink]="['/ulazi/inventura']">Inventura</a>
+              <a class="nav-link" routerLinkActive="active" [routerLink]="['/ulazi/dobavljaci']">Dobavljaci</a>
         </span>
       </accordion-group>
       <hr>
@@ -19,7 +19,16 @@
           <span>
                 <a class="nav-link" href="#">Analitika stavka</a>
           </span>
-        </accordion-group>
+      </accordion-group>
+      <hr>
+      <accordion-group class="nav-item" heading="Postavke" index=3>
+        <span>
+              <a class="nav-link"routerLinkActive="active" [routerLink]="['/settings/globalne']">Globalne</a>
+        </span>
+        <span>
+          <a class="nav-link"routerLinkActive="active" [routerLink]="['/settings/lokacije']">Lokacije</a>
+      </span>
+    </accordion-group>
     </accordion>
   </ul>
   <!-- <ul class="nav nav-pills flex-column">

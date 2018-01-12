@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Injectable } from '@angular/core';
 import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
-import { SharedModule } from '../shared/shared.module'; 
+import { SharedModule } from '../../shared/shared.module'; 
 
 import { Article } from './article.model';
 import { InventuraService } from './inventura.service';

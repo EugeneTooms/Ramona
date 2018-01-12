@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import { SharedModule } from '../shared/shared.module';
-import { routing } from '../app.routing';
+import { SharedModule } from '../../shared/shared.module';
+import { routing } from '../../app.routing';
 
 import { PrimkeComponent } from './primke.component';
 import { ListaPrimkiComponent } from './lista-primki/lista-primki.component';

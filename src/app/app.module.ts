@@ -5,13 +5,14 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms'
 
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
-import { NavigacijaComponent } from './navigacija/navigacija.component';
-
 
 import { NavigacijaModule } from './navigacija/navigacija.module';
-import { PrimkeModule } from './primke/primke.module';
-import { InventuraModule } from './inventura/inventura.module';
-import { DobavljacModule } from './dobavljac/dobavljac.module';
+
+import { UlaziModule } from './ulazi/ulazi.module';
+
+
+import { SettingsModule } from './settings/settings.module';
+
 
 @NgModule({
   declarations: [
@@ -22,9 +23,8 @@ import { DobavljacModule } from './dobavljac/dobavljac.module';
     routing,
     HttpModule,
     NavigacijaModule,
-    PrimkeModule,
-    DobavljacModule,
-    InventuraModule
+    UlaziModule,
+    SettingsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

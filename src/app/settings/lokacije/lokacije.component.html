@@ -1,0 +1,30 @@
+<div class="container-fluid">
+  <ul class="list-group">
+    <li *ngFor='let lokacija of lokacije; let i = index' class="list-group-item">
+      <div [ngClass]="{'active': selectedIndex == i, 'list-group-item': true}" (click)="setIndex(i)">{{lokacija.naziv}}</div>
+      <div *ngIf='selectedIndex === i' class="container">
+        <hr>
+        <form>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label>Naziv</label>
+            </div>
+            <div class="form-group col-md-6">
+              <input type="text" class="form-control" id="lokacija_{{lokacija.id}}" placeholder="{{lokacija.naziv}}">
+            </div>
+          </div>
+          <button type="submit" class="btn btn-success float-right">Spremi</button>
+          <br>
+          <hr>
+            <div class="form-group col-md-12">
+              <label class="text-center" for="inputartikal">Dodaj artikle</label>
+              <select id="inputartikal" class="form-control">
+                <option *ngFor='let artikal of artikli' value="{{artikal.id}}">{{artikal.naziv}}</option>
+              </select>
+          </div>
+          
+        </form>
+      </div>
+    </li>
+  </ul>
+</div>

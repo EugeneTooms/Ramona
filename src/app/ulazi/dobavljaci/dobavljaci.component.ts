@@ -1,16 +1,16 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Dobavljac } from './dobavljac.model';
-import { DobavljacService } from './dobavljac.service';
+import { DobavljaciService } from './dobavljaci.service';
 
 @Component({
-  selector: 'app-dobavljac',
-  templateUrl: './dobavljac.component.html',
-  styleUrls: ['./dobavljac.component.css']
+  selector: 'app-dobavljaci',
+  templateUrl: './dobavljaci.component.html',
+  styleUrls: ['./dobavljaci.component.css']
 })
-export class DobavljacComponent implements OnInit {
+export class DobavljaciComponent implements OnInit {
   @Input() dobavljaci : Dobavljac[]
 
-  constructor(private dobavljacService : DobavljacService) { }
+  constructor(private dobavljacService : DobavljaciService) { }
 
   ngOnInit() {
     this.dobavljacService.getDobavljace()

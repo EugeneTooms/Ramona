@@ -1,13 +1,13 @@
 import { Http, Response, Headers} from '@angular/http'
 import { Injectable, EventEmitter } from '@angular/core';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/Rx';
 
 import { Dobavljac } from "./dobavljac.model";
 
 @Injectable()
-export class DobavljacService{
+export class DobavljaciService{
     private dobavljaci : Dobavljac[] = [];
     constructor (private http : Http){}
 

@@ -1,14 +1,14 @@
 import { Routes, RouterModule } from '@angular/router';
-import { InventuraComponent } from './inventura/inventura.component';
-import { DobavljacComponent } from './dobavljac/dobavljac.component';
-import { PrimkeComponent } from './primke/primke.component';
-import { PRIMKE_ROUTES } from './primke/primke.routes';
+import { UlaziComponent } from './ulazi/ulazi.component';
+import { ULAZI_ROUTES } from './ulazi/ulazi.routes';
+import { SettingsComponent } from './settings/settings.component';
+import { SETTINGS_ROUTES } from './settings/settings.routes';
+
 
 const ROUTES : Routes =[
     {path: '', redirectTo: '/', pathMatch: 'full'},
-    {path: 'inventura', component: InventuraComponent},
-    {path: 'dobavljaci', component: DobavljacComponent},
-    {path: 'primke', component: PrimkeComponent, children: PRIMKE_ROUTES}
+    {path: 'ulazi', component: UlaziComponent, children: ULAZI_ROUTES},
+    {path: 'settings', component: SettingsComponent, children: SETTINGS_ROUTES}
 ];
 
 export const routing = RouterModule.forRoot(ROUTES)

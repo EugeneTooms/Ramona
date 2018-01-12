@@ -40,6 +40,9 @@ naziv, name;
 bot_inventura_in_out
 
 */
+router.use('/lokacije', require('./postavke/lokacije'));
+router.use('/artikli', require('./postavke/artikli'));
+
 router.get('/inventura/artikli', function(req, res, next){
     kon.query(`select
     articles.id,
