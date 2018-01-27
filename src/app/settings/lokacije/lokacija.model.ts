@@ -5,3 +5,5 @@ export class Lokacija{
                 public naziv : string,
                 public artikli? : Lokacija_Artikal[]) {}
 }
+
+//test na reinstaliranom laptopu
