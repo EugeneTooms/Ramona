@@ -6,4 +6,4 @@ export class Lokacija{
                 public artikli? : Lokacija_Artikal[]) {}
 }
 
-//test na reinstaliranom laptopu
+//test kada promijenim radni folder i vratim se nazad u Studio Code-u
