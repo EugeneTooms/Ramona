@@ -16,14 +16,25 @@
           <button type="submit" class="btn btn-success float-right">Spremi</button>
           <br>
           <hr>
-            <div class="form-group col-md-12">
-              <label class="text-center" for="inputartikal">Dodaj artikle</label>
-              <select id="inputartikal" class="form-control">
-                <option *ngFor='let artikal of artikli' value="{{artikal.id}}">{{artikal.naziv}}</option>
-              </select>
+          <div class="clearfix">
+            <ul class="list-group" [sortablejs]="artikliLokacija">
+              <li *ngFor='let art of artikliLokacija | filter : "location_id" : lokacija.id'class="list-group-item">{{art.id}}</li>
+            </ul>
           </div>
           
+          <hr>
+          <div class="form-row">
+            <div class="form-group col-md-8">
+                    <label class="text" for="inputartikal">Dodaj artikle</label>
+                    <select [(ngModel)]="odabraniArtikal" name="odabraniartikal" class="form-control">
+                      <option *ngFor='let artikal of artikli' value="{{artikal.id}}">{{artikal.naziv}}</option>
+                    </select>
+            </div>
+          </div>
         </form>
+        <div class="form-group col-md-3">
+          <button (click)="dodajArtikal(lokacija.id)" class="btn btn-primary">Dodaj</button>
+        </div>
       </div>
     </li>
   </ul>

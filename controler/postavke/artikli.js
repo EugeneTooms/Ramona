@@ -22,7 +22,23 @@ router.get('/', function(req, res) {
 );
 });
 router.get('/byLocation/:id', function(req, res) {
-    kon.query('SELECT * from articles WHERE location_id = ' + req.params.id.toString(),
+    kon.query('SELECT * from location_articles WHERE location_id = ' + req.params.id.toString(),
+    function(error, results){
+            if(error) {
+                return res.status(500).json({
+                    title: 'An error has occured',
+                    error : error
+                });
+            }			
+            res.status(200).json({
+                message: 'Success',
+                obj: results
+            });
+    }
+);
+});
+router.get('/byLocation/', function(req, res) {
+    kon.query('SELECT * from location_articles',
     function(error, results){
             if(error) {
                 return res.status(500).json({

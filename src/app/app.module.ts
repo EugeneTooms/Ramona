@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms'
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { SortablejsModule } from 'angular-sortablejs';
 
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
@@ -14,6 +15,7 @@ import { UlaziModule } from './ulazi/ulazi.module';
 import { SettingsModule } from './settings/settings.module';
 
 
+
 @NgModule({
   declarations: [
     AppComponent  
@@ -24,7 +26,8 @@ import { SettingsModule } from './settings/settings.module';
     HttpModule,
     NavigacijaModule,
     UlaziModule,
-    SettingsModule
+    SettingsModule,
+    SortablejsModule.forRoot({ animation: 150 })
   ],
   providers: [],
   bootstrap: [AppComponent]
