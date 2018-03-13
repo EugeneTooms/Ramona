@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
-    SharedModule, FormsModule, SortablejsModule
+    SharedModule, FormsModule, SortablejsModule.forRoot({animation : 150})
   ],
   declarations: [LokacijeComponent],
   exports : [LokacijeComponent],

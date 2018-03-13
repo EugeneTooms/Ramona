@@ -145,7 +145,7 @@ router.post('/inventura', function(req, res, next){
                         error : error
                     });
                 }			
-                res.status(200).json({
+                res.status(201).json({
                     message: 'Inventura spremljena',
                     obj: results
                 });

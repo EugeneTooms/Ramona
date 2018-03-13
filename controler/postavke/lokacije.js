@@ -21,4 +21,21 @@ router.get('/', function(req, res) {
     }
 );
 });
+router.post('/', function(req, res) {
+    var jsondata = { id :  req.body.id , naziv_lokacije : req.body.naziv};
+    kon.query('INSERT INTO locations SET ?', jsondata ,
+    function(error, results){
+            if(error) {
+                return res.status(500).json({
+                    title: 'An error has occured',
+                    error : error
+                });
+            }			
+            res.status(201).json({
+                message: 'Success',
+                obj: results
+            });
+    }
+);
+});
 module.exports = router;

@@ -1,23 +1,23 @@
 <div class="container-fluid">
   <ul class="list-group">
     <li *ngFor='let lokacija of lokacije; let i = index' class="list-group-item">
-      <div [ngClass]="{'active': selectedIndex == i, 'list-group-item': true}" (click)="setIndex(i)">{{lokacija.naziv}}</div>
+      <div [ngClass]="{'active': selectedIndex == i, 'list-group-item': true}" (click)="setIndex(i, lokacija.id)">{{lokacija.naziv}}</div>
       <div *ngIf='selectedIndex === i' class="container">
         <hr>
-        <form>
+        <form (ngSubmit)="SpremiLokaciju(f,lokacija.id)" #f="ngForm">
           <div class="form-row">
             <div class="form-group col-md-6">
               <label>Naziv</label>
             </div>
             <div class="form-group col-md-6">
-              <input type="text" class="form-control" id="lokacija_{{lokacija.id}}" placeholder="{{lokacija.naziv}}">
+              <input type="text" class="form-control" id="lokacija_{{lokacija.id}}" name="lokacija_{{lokacija.id}}" placeholder="{{lokacija.naziv}}" ngModel>
             </div>
           </div>
           <button type="submit" class="btn btn-success float-right">Spremi</button>
           <br>
           <hr>
           <div class="clearfix">
-            <ul class="list-group" [sortablejs]="artikliLokacija">
+            <ul class="list-group" [sortablejs]="artikliLokacija" [sortablejsOptions]="eventOptions">
               <li *ngFor='let art of artikliLokacija | filter : "location_id" : lokacija.id'class="list-group-item">{{art.id}}</li>
             </ul>
           </div>
@@ -38,4 +38,13 @@
       </div>
     </li>
   </ul>
+  <hr>
+  <h3 class="text-center">Dodaj novu lokaciju</h3>
+  <form class="form-inline" (ngSubmit)="dodajLokaciju(f)" #f="ngForm">
+    <div class="form-group mx-sm-3 mb-2">
+      <label for="novaLokacija" class="sr-only">Naziv</label>
+      <input type="text" class="form-control" id="novaLokacija" name="novaLokacija" placeholder="Nova Lokacija" ngModel>
+    </div>
+    <button type="submit" class="btn btn-primary mb-2">Kreiraj</button>
+  </form>
 </div>
