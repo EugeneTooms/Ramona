@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-artikli',
-  template: '<router-outlet></router-outlet>',
+  template:`  <app-lista-artikala></app-lista-artikala>            
+              <app-artikal-input></app-artikal-input>
+            `,
 })
 export class ArtikliComponent implements OnInit {
 

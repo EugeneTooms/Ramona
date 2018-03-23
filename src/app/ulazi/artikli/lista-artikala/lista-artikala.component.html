@@ -1,0 +1,17 @@
+<div class="container" *ngIf="toggle === 0">
+  <table class="table table-hover table-fixed">
+      <thead>
+          <tr>
+              <th>Name</th>
+              <th>Odaberi</th>
+              <th><button (click)="Addnew()" class="btn btn-success btn-sm">Dodaj Artikal</button></th>
+          </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor='let artikal of artikli'>
+          <td>{{artikal.naziv}}</td>
+          <td><button (click)="onEdit(artikal)" class="btn btn-info btn-sm">Select</button></td>
+        </tr>
+      </tbody>
+  </table>
+  </div>

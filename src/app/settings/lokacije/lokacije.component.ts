@@ -23,11 +23,7 @@ export class LokacijeComponent implements OnInit {
   selectedIndex: number = null;
   odabraniArtikal : number;
 
-  constructor(private lokacijaService : LokacijaService, private artiliService: ArtikliService) { 
-    // this.options = {
-    //   onUpdate: (event : any) => {console.log('promjena');}
-    // };
-   }
+  constructor(private lokacijaService : LokacijaService, private artiliService: ArtikliService) {  }
  
    eventOptions: SortablejsOptions = {
     onUpdate :(event: any) => {
@@ -51,7 +47,6 @@ export class LokacijeComponent implements OnInit {
       (lokacije = []) => {this.lokacije = lokacije}
     );
     this.artiliService.getArtikle().subscribe((artikli = []) => {this.artikli = artikli});
-    //this.lokacijaService.getLocationArticles().subscribe((Lokacija_Artikal = []) => {this.artikliLokacija = Lokacija_Artikal});
   }
   dodajArtikal(lokid){
     const noviartikal = new Lokacija_Artikal(this.odabraniArtikal,lokid, this.artikliLokacija.length)

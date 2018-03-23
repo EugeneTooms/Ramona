@@ -1,0 +1,71 @@
+<form *ngIf="toggle === 1" (ngSubmit)="SpremiArtikal(f)" #f="ngForm">
+  <div class="form-group">
+    <label for="Barcode">Barcode</label>
+    <input type="text" class="form-control" id="Barcode" name="barcode" [ngModel]="artikal?.barcode">
+  </div>
+  <div class="form-group">
+    <label for="Naziv">Naziv</label>
+    <input type="text" class="form-control" id="Naziv" name="naziv"  [ngModel]="artikal?.naziv">
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="poreznaGrupa">Porezna Grupa</label>
+      <select id="poreznaGrupa"  name="poreznaGrupa" class="form-control" >
+        <option selected>Choose...</option>
+        <option>...</option>
+      </select>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="GrupaPrikaza">Grupa Prikaza</label>
+      <select id="GrupaPrikaza" name="GrupaPrikaza" class="form-control" >
+        <option selected>Choose...</option>
+        <option>...</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="Jedinica">Jedinica</label>
+    <input type="text" class="form-control" id="Jedinica" name="Jedinica" [ngModel]="artikal?.jedinica">
+  </div>
+  <div class="form-group">
+    <label for="PC">Prodajna Cijena</label>
+    <input type="number" class="form-control" id="PC" name="PC" [ngModel]="artikal?.prodajnaCijena">
+  </div>
+  <div class="form-group">
+    <label for="NC">Nabavna Cijena</label>
+    <input type="number" class="form-control" id="NC" name="NC" [ngModel]="artikal?.nabavnaCijena">
+  </div>
+  <div class="form-group">
+    <label for="Povrat">Povratna Naknada</label>
+    <input type="number" class="form-control" id="Povrat" name="Povrat" [ngModel]="artikal?.naknada">
+  </div>
+  <div class="form-group">
+    <label for="Kalo">Dozvoljeni KALO</label>
+    <input type="number" class="form-control" id="Kalo" name="Kalo" [ngModel]="artikal?.kalo">
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+        <div class="card" style="width: 20%;">
+          <img class="card-img-top" src="assets/img/articles/{{artikal?.img}}" alt="Card image cap">
+        </div>
+    </div>
+    <div class="form-group col-md-6">
+        <div class="input-group mb-3">
+            <div class="custom-file">
+              <input type="file" name="photo" ng2FileSelect [uploader]="uploader" name="img" ngModel>
+              <button type="button" class="btn btn-success btn-s" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+                Upload
+              </button>
+            </div>
+        </div>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-success">Spremi</button>
+  <button type="submit" class="btn btn-danger" (click)="Dismiss(f)">Odustani</button>
+</form>
+
+<!-- <input type="file" name="photo" ng2FileSelect [uploader]="uploader" />
+ button to trigger the file upload when submitted 
+<button type="button" class="btn btn-success btn-s" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+      Upload
+</button> -->
