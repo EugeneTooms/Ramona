@@ -88,6 +88,32 @@ router.get('/grupeartikala', function(req, res, next){
         }
     );
 });
+router.get('/ionicinventura/:id', function(req, res, next){
+    kon.query(`
+        SELECT articles.id, articles.name, articles.img, inventura_detail.kolicina 
+        FROM inventura_detail LEFT JOIN articles on 
+        inventura_detail.article_id = articles.id LEFT JOIN inventura_master on
+        inventura_detail.location_id = inventura_master.location_id AND
+        inventura_detail.inventory_id = inventura_master.inventory_id
+        WHERE inventura_master.inventory_id = ( SELECT  MAX(inventura_master.inventory_id)
+        FROM inventura_master 
+        WHERE  
+        inventura_master.location_id =  ?) AND  inventura_master.location_id = ?
+    `,[req.params.id, req.params.id],
+        function(error, results){
+                if(error) {
+                    return res.status(500).json({
+                        title: 'An error has occured',
+                        error : error
+                    });
+                }			
+                res.status(200).json({
+                    message: 'Success',
+                    obj: results
+                });
+        }
+    );
+});
 router.get('/dobavljaci', function(req, res, next){
     kon.query('SELECT * from suppliers',
         function(error, results){
