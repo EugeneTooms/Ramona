@@ -104,7 +104,7 @@ router.get('/ionicinventura/:id', function(req, res, next){
             WHERE  
             bot_inventura_master.location_id =  1) AND  bot_inventura_master.location_id = 1
             ORDER BY indeks
-    `,[req.params.id, req.params.id],
+            `,[req.params.id, req.params.id],
         function(error, results){
                 if(error) {
                     return res.status(500).json({
