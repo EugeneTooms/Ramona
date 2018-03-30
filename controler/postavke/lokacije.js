@@ -6,7 +6,7 @@ var config = require('../../config');
 var kon = config.getDBconnection();
 // api/lokacije
 router.get('/', function(req, res) {
-    kon.query('SELECT * from locations',
+    kon.query('SELECT * from bot_locations',
     function(error, results){
             if(error) {
                 return res.status(500).json({
@@ -23,7 +23,7 @@ router.get('/', function(req, res) {
 });
 router.post('/', function(req, res) {
     var jsondata = { id :  req.body.id , naziv_lokacije : req.body.naziv};
-    kon.query('INSERT INTO locations SET ?', jsondata ,
+    kon.query('INSERT INTO bot_locations SET ?', jsondata ,
     function(error, results){
             if(error) {
                 return res.status(500).json({

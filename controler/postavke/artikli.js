@@ -24,7 +24,7 @@ router.get('/', function(req, res) {
 );
 });
 router.get('/byLocation/', function(req, res) {
-    kon.query('SELECT * from location_articles',
+    kon.query('SELECT * from bot_location_articles',
     function(error, results){
             if(error) {
                 return res.status(500).json({
@@ -40,7 +40,7 @@ router.get('/byLocation/', function(req, res) {
 );
 });
 router.get('/byLocation/:id', function(req, res) {
-    kon.query('SELECT * from location_articles WHERE location_id = ' + req.params.id.toString() + ' ORDER BY indeks',
+    kon.query('SELECT * from bot_location_articles WHERE location_id = ' + req.params.id.toString() + ' ORDER BY indeks',
     function(error, results){
             if(error) {
                 return res.status(500).json({
@@ -67,7 +67,7 @@ router.post('/byLocation/', function(req, res) {
             jsondata[i].index]);
     }
     console.log(data[0]);
-    kon.query('INSERT INTO location_articles VALUES ? ON DUPLICATE KEY UPDATE indeks=VALUES(indeks)' , [data],
+    kon.query('INSERT INTO bot_location_articles VALUES ? ON DUPLICATE KEY UPDATE indeks=VALUES(indeks)' , [data],
     function(error, results){
             if(error) {
                 return res.status(500).json({
