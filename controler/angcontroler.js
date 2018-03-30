@@ -90,15 +90,20 @@ router.get('/grupeartikala', function(req, res, next){
 });
 router.get('/ionicinventura/:id', function(req, res, next){
     kon.query(`
-        SELECT articles.id, articles.name, articles.img, inventura_detail.kolicina 
-        FROM inventura_detail LEFT JOIN articles on 
-        inventura_detail.article_id = articles.id LEFT JOIN inventura_master on
-        inventura_detail.location_id = inventura_master.location_id AND
-        inventura_detail.inventory_id = inventura_master.inventory_id
-        WHERE inventura_master.inventory_id = ( SELECT  MAX(inventura_master.inventory_id)
-        FROM inventura_master 
-        WHERE  
-        inventura_master.location_id =  ?) AND  inventura_master.location_id = ?
+            SELECT articles.id, location_articles.indeks, articles.name, articles.img, inventura_detail.kolicina 
+            FROM inventura_detail 
+            LEFT JOIN articles on inventura_detail.article_id = articles.id
+            LEFT JOIN location_articles on 
+            inventura_detail.article_id = location_articles.article_id  
+            AND inventura_detail.location_id = location_articles.location_id
+            LEFT JOIN inventura_master on
+            inventura_detail.location_id = inventura_master.location_id AND
+            inventura_detail.inventory_id = inventura_master.inventory_id
+            WHERE inventura_master.inventory_id = ( SELECT  MAX(inventura_master.inventory_id)
+            FROM inventura_master 
+            WHERE  
+            inventura_master.location_id =  ?) AND  inventura_master.location_id = ?
+            ORDER BY indeks
     `,[req.params.id, req.params.id],
         function(error, results){
                 if(error) {
