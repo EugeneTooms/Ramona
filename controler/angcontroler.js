@@ -90,12 +90,12 @@ router.get('/grupeartikala', function(req, res, next){
 });
 router.get('/ionicinventura/:id', function(req, res, next){
     kon.query(`
-            SELECT articles.id, location_articles.indeks, articles.name, articles.img, bot_inventura_detail.kolicina 
+            SELECT articles.id, bot_location_articles.indeks, articles.name, articles.img, bot_inventura_detail.kolicina 
             FROM bot_inventura_detail 
             LEFT JOIN articles on bot_inventura_detail.article_id = articles.id
-            LEFT JOIN location_articles on 
-            bot_inventura_detail.article_id = location_articles.article_id  
-            AND bot_inventura_detail.location_id = location_articles.location_id
+            LEFT JOIN bot_location_articles on 
+            bot_inventura_detail.article_id = bot_location_articles.article_id  
+            AND bot_inventura_detail.location_id = bot_location_articles.location_id
             LEFT JOIN bot_inventura_master on
             bot_inventura_detail.location_id = bot_inventura_master.location_id AND
             bot_inventura_detail.inventory_id = bot_inventura_master.inventory_id
