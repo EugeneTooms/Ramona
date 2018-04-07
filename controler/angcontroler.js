@@ -102,7 +102,7 @@ router.get('/ionicinventura/:id', function(req, res, next){
             WHERE bot_inventura_master.inventory_id = ( SELECT  MAX(bot_inventura_master.inventory_id)
             FROM bot_inventura_master 
             WHERE  
-            bot_inventura_master.location_id =  1) AND  bot_inventura_master.location_id = 1
+            bot_inventura_master.location_id =  ?) AND  bot_inventura_master.location_id = ?
             ORDER BY indeks
             `,[req.params.id, req.params.id],
         function(error, results){
