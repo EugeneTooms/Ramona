@@ -122,13 +122,7 @@ router.get('/ionicinventura/:id', function(req, res, next){
 router.post('/ionicinventura', function(req, res, next){
     var artikli = [];
     var jsondata = req.body.artikli;
-    for (let i=0;i<jsondata.length; i++){
-        artikli.push([jsondata[i].datum,
-            jsondata[i].id,
-            jsondata[i].indeks,
-            jsondata[i].kolicina,
-        ]);
-    }
+
     kon.query('INSERT INTO bot_inventura_master SET ?', {location_id : req.body.lokacija.id, snapshot_dttm : req.body.datum},
     function(error, results){
             if(error) {
@@ -136,12 +130,33 @@ router.post('/ionicinventura', function(req, res, next){
                     title: 'An error has occured',
                     error : error
                 });
-            }		
+            }
+            for (let i=0;i<jsondata.length; i++){
+                artikli.push([results.insertId,
+                    req.body.lokacija.id,
+                    jsondata[i].id,
+                    jsondata[i].kolicina,
+                ]);
+            }
+            kon.query('INSERT INTO bot_inventura_detail VALUES ?', [artikli],
+            function(error, results){
+                    if(error) {
+                        return res.status(500).json({
+                            title: 'An error has occured',
+                            error : error
+                        });
+                    }			
+                    res.status(201).json({
+                        message: 'Inventura spremljena',
+                        obj: results
+                    });
+            }
+            );		
             console.log(results.insertId);	
-            res.status(201).json({
-                message: 'Inventura spremljena',
-                obj: results
-            });
+            // res.status(201).json({
+            //     message: 'Inventura spremljena',
+            //     obj: results
+            // });
         }
     );
 
