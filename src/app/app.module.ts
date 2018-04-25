@@ -13,6 +13,7 @@ import { UlaziModule } from './ulazi/ulazi.module';
 
 
 import { SettingsModule } from './settings/settings.module';
+import { AnalitikaModule } from './analitika/analitika.module';
 
 
 
@@ -27,6 +28,7 @@ import { SettingsModule } from './settings/settings.module';
     NavigacijaModule,
     UlaziModule,
     SettingsModule,
+    AnalitikaModule,
     SortablejsModule.forRoot({ animation: 150 })
   ],
   providers: [],

@@ -90,7 +90,7 @@ router.get('/grupeartikala', function(req, res, next){
 });
 router.get('/ionicinventura/:id', function(req, res, next){
     kon.query(`
-            SELECT articles.id, bot_location_articles.indeks, articles.name, articles.img, bot_inventura_detail.kolicina 
+            SELECT articles.id, bot_inventura_master.inventory_id, bot_location_articles.indeks, articles.name, articles.img, bot_inventura_detail.kolicina 
             FROM bot_inventura_detail 
             LEFT JOIN articles on bot_inventura_detail.article_id = articles.id
             LEFT JOIN bot_location_articles on 
@@ -123,7 +123,7 @@ router.post('/ionicinventura', function(req, res, next){
     var artikli = [];
     var jsondata = req.body.artikli;
 
-    kon.query('INSERT INTO bot_inventura_master SET ?', {location_id : req.body.lokacija.id, snapshot_dttm : req.body.datum},
+    kon.query('INSERT INTO bot_inventura_master SET ?', {inventory_id : req.body.inventory_id, location_id : req.body.lokacija.id, snapshot_dttm : req.body.datum},
     function(error, results){
             if(error) {
                 return res.status(500).json({
@@ -132,7 +132,7 @@ router.post('/ionicinventura', function(req, res, next){
                 });
             }
             for (let i=0;i<jsondata.length; i++){
-                artikli.push([results.insertId,
+                artikli.push([req.body.inventory_id,
                     req.body.lokacija.id,
                     jsondata[i].id,
                     jsondata[i].kolicina,
@@ -152,11 +152,6 @@ router.post('/ionicinventura', function(req, res, next){
                     });
             }
             );		
-            console.log(results.insertId);	
-            // res.status(201).json({
-            //     message: 'Inventura spremljena',
-            //     obj: results
-            // });
         }
     );
 
@@ -225,104 +220,5 @@ router.post('/inventura', function(req, res, next){
                 });
             }
         );
-// CREATE TABLE inventory_post 
-// (
-// inventory_date date,
-
-// article_id integer,
-
-// article_name char(20),
-
-// article_group char(20),
-
-// previous_count decimal(5,2),
-
-// incoming_count decimal(5,2),
-
-// sold_count decimal(5,2),
-
-// current_count_system decimal(5,2),
-
-// current_count_physical decimal(5,2),
-
-// current_count_difference decimal(5,2)
-    // return res.status(201).json({
-    //     message : 'Inventura spremljena',
-    //     obj : req.body.content
-    // });
 });
-
-// router.get('/articles', function(req, res, next){
-//     kon.query('SELECT * from articles',
-//         function(error, results){
-//                 if(error) {
-//                     return res.status(500).json({
-//                         title: 'An error has occured',
-//                         error : error
-//                     });
-//                 }			
-//                 res.status(200).json({
-//                     message: 'Success',
-//                     obj: results
-//                 });
-//         }
-//     );
-// });
-// router.get('/receivingitems/:id', function(req, res, next){
-    
-//     kon.query('SELECT * from receiving_items WHERE receiving_id = ' + req.params.id,
-//         function(error, results){
-//                 if(error) {
-//                     return res.status(500).json({
-//                         title: 'An error has occured',
-//                         error : error
-//                     });
-//                 }			
-//                 res.status(200).json({
-//                     message: 'Success',
-//                     obj: results
-//                 });
-//         }
-//     );
-// });
-// router.get('/receivings_list', function(req, res, next){
-    
-//     kon.query('SELECT * from receivings',
-//         function(error, results){
-//                 if(error) {
-//                     return res.status(500).json({
-//                         title: 'An error has occured',
-//                         error : error
-//                     });
-//                 }			
-//                 res.status(200).json({
-//                     message: 'Success',
-//                     obj: results
-//                 });
-//         }
-//     );
-// });
-
-// router.post('/article', function(req, res, next){
-//     console.log(req.body);
-//     res.status(200).json({
-//         message : 'Success',
-//         obj : req.body.content
-//     });
-//     // kon.query('INSERT INTO articles SET ?', req.body,
-//     //     function(error, results){
-//     //             if(error) {
-//     //                 return res.status(500).json({
-//     //                     title: 'An error has occured',
-//     //                     error : error
-//     //                 });
-//     //             }			
-//     //             res.status(200).json({
-//     //                 message: 'Success',
-//     //                 obj: results
-//     //             });
-//     //     }
-//     // );
-// });
-
 module.exports = router;
