@@ -1,3 +1,47 @@
-<p>
-  stanje-skladista works!
-</p>
+<div class="col-12">
+  <h2 class="text-center">Stanje Skladista</h2>
+<br>
+<br>
+<div class="form-row">
+    <div class="form-group col-md-8">
+            <label class="text" for="inputartikal">Odaberi datum Inventure</label>
+            <select [(ngModel)]="odabraniDatum" name="odabranidatum" class="form-control">
+              <option *ngFor='let datum of datumi' value="{{datum.inventory_id}}">{{datum.snapshot_dttm}}</option>
+            </select>
+    </div>
+    <div class="form-group col-md-3">
+        <button (click)="Odaberi(odabraniDatum)" class="btn btn-success">Pogledaj</button>
+      </div>
+  </div>
+  <accordion *ngIf="toggle">
+    <accordion-group *ngFor='let grup of grupe' [heading]='grup.naziv' [index]='grup.id'>
+      <span>
+              <table class="table table-hover table-fixed">
+                  <thead>
+                      <tr>
+                          <th>Name</th>
+                          <th>Prije</th>
+                          <th>Ulazi</th>
+                          <th>Prodaja</th>
+                          <th>Otpisi</th>
+                          <th>Poslije</th>
+                          <th>Razlika</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor='let st of stanje | filter : "grupa" : grup.naziv' >
+                      <td>{{st.name}}</td>
+                      <td>{{st.prije}}</td>
+                      <td>{{st.ulazi}}</td>
+                      <td>{{st.prodaja}}</td>
+                      <td>{{st.otpisi}}</td>
+                      <td>{{st.poslije}}</td>
+                      <td>{{st.razlika}}</td>
+                    </tr>
+                  </tbody>
+              </table>
+      </span>
+    </accordion-group>
+    <br>
+  </accordion>
+</div>

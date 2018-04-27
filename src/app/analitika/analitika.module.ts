@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
+import { SharedModule } from '../shared/shared.module';
+import { routing } from '../app.routing';
 
 import { AnalitikaComponent } from './analitika.component';
-import { SharedModule } from '../shared/shared.module';
-import { StanjeSkladistaComponent } from './stanje-skladista/stanje-skladista.component';
-import { routing } from '../app.routing';
+import { StanjeSkladistaModule } from './stanje-skladista/stanje-skladista.module';
 
 @NgModule({
   imports: [
-    SharedModule, routing
+    SharedModule, routing, StanjeSkladistaModule
   ],
-  declarations: [AnalitikaComponent, StanjeSkladistaComponent],
-  exports : [AnalitikaComponent, StanjeSkladistaComponent]
+  declarations: [AnalitikaComponent],
+  exports : [AnalitikaComponent, StanjeSkladistaModule]
 })
 export class AnalitikaModule { }
