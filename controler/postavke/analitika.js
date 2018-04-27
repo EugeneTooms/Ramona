@@ -184,7 +184,7 @@ xyz.article_id,
 articles.name, 
 art_show_gr.naziv;
 
-    `,[req.query.id1, req.query.id2, req.query.id1, req.query.datum2, req.query.datum1], 
+    `,[req.query.id2, req.query.id1, req.query.id2, req.query.datum2, req.query.datum1], 
     function(error, results){
             if(error) {
                 return res.status(500).json({

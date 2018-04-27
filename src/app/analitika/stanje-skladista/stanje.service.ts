@@ -40,7 +40,16 @@ export class StanjeService {
         const stanje = response.json().obj;
         let transformedstanje: Stanje[] = [];
         for (let item of stanje){
-          transformedstanje.push(new Stanje(item.article_id, item.name, item.grupa, item.prije, item.ulazi,item.prodaja,item.otpisi,item.poslije,0));
+          transformedstanje.push(new Stanje(
+            item.article_id, 
+            item.name, 
+            item.grupa, 
+            item.prije, 
+            item.ulazi,
+            item.prodaja,
+            item.otpisi,
+            item.poslije,
+            0));
         }
         this.stanje = transformedstanje;
         return transformedstanje;
