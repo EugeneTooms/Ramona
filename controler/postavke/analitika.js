@@ -197,7 +197,7 @@ art_show_gr.naziv;
                 obj: results
             });
     }
-);
+); console.log(req.query);
 });
 router.get('/inventorydates', function(req, res) { //jedinstveni Datumi inventure 
     kon.query('Select distinct snapshot_dttm, inventory_id from bot_inventura_master',
