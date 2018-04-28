@@ -11,6 +11,7 @@ import { Datum } from './datum.model';
 })
 export class StanjeSkladistaComponent implements OnInit {
   @Input() stanje : Stanje[];
+  @Input() stanjeraprikaz : Stanje[];
   @Input() datumi : Datum[];
   
   grupe : any;
@@ -25,6 +26,12 @@ export class StanjeSkladistaComponent implements OnInit {
     );
     this.stanjeService.getDatume()
       .subscribe((datumi = [] )=> {this.datumi = datumi});
+  }
+  SamoRazlika(){
+    this.stanjeraprikaz = this.stanje.filter(x => x.razlika != 0);
+  }
+  Svi(){
+    this.stanjeraprikaz = this.stanje;
   }
   Odaberi(broj:number){
     let prvi : Datum;
@@ -47,7 +54,10 @@ export class StanjeSkladistaComponent implements OnInit {
     //  console.log(drugi);
 
     this.stanjeService.getStanje(prvi.inventory_id, prvi.snapshot_dttm, drugi.inventory_id,  drugi.snapshot_dttm)
-      .subscribe((stanje = []) =>{this.stanje = stanje});
+      .subscribe((stanje = []) =>{
+        this.stanjeraprikaz = stanje
+        this.stanje = stanje
+      });
   }
 
 }
