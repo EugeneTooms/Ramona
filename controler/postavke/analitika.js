@@ -83,31 +83,7 @@ art_show_gr.naziv;
 
 
     */
-   kon.query('truncate bot_inventura_detail',
-   function(error, results){
-           if(error) {
-               return res.status(500).json({
-                   title: 'An error has occured',
-                   error : error
-               });
-           }   kon.query(`INSERT INTO bot_inventura_detail (inventory_id, location_id, article_id, kolicina)
-                SELECT 
-                    id, 
-                    1, 
-                    product_id,
-                    sum(on_hand)
-                FROM bot_partender_import
-                where product_id is not null
-                group by 
-                    id, 
-                    product_id`,
-           function(error, results){
-                   if(error) {
-                       return res.status(500).json({
-                           title: 'An error has occured',
-                           error : error
-                       });
-                   }    kon.query(`
+       kon.query(`
                    select 
                    article_id,
                    articles.name, 
@@ -221,12 +197,6 @@ art_show_gr.naziv;
                            });
                    }
                );
-                               
-           }
-            );
-
-   }
-    );
  console.log(req.query);
 });
 router.get('/inventorydates', function(req, res) { //jedinstveni Datumi inventure 
