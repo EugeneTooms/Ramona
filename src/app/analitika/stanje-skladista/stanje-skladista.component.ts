@@ -27,6 +27,7 @@ export class StanjeSkladistaComponent implements OnInit {
       .subscribe((datumi = [] )=> {this.datumi = datumi});
   }
   Odaberi(broj:number){
+    console.log(this.datumi);
     this.toggle = true
     const prvi = this.datumi.find(x => x.inventory_id == this.odabraniDatum);
     const drugi = this.datumi.find(x => x.inventory_id == (this.odabraniDatum - 1));
