@@ -26,6 +26,7 @@ export class StanjeService {
           const datumi = response.json().obj;
           let transformedDatumi: Datum[] = [];
           for (let datum of datumi){
+            
             transformedDatumi.push(new Datum(datum.inventory_id, datum.snapshot_dttm));
           }
           this.datumi = transformedDatumi;
@@ -49,7 +50,8 @@ export class StanjeService {
             item.prodaja,
             item.otpisi,
             item.poslije,
-            0));
+            (Math.round( (item.poslije - (item.prije+item.ulazi+item.prodaja+item.otpisi)) * 10) / 10)
+            ));
         }
         this.stanje = transformedstanje;
         return transformedstanje;

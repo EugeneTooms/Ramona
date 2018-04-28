@@ -27,15 +27,24 @@ export class StanjeSkladistaComponent implements OnInit {
       .subscribe((datumi = [] )=> {this.datumi = datumi});
   }
   Odaberi(broj:number){
-    console.log(this.datumi);
-    console.log(this.odabraniDatum);
-    console.log(broj);
+    let prvi : Datum;
+    let drugi : Datum;
     this.toggle = true
-    const prvi = this.datumi.find(x => x.inventory_id == this.odabraniDatum);
-    const drugi = this.datumi.find(x => x.inventory_id == (this.odabraniDatum - 1));
+    for (let i = this.datumi.length -1; i >= 0 ; i--) {
+      if(this.datumi[i].inventory_id == this.odabraniDatum){
+        prvi = this.datumi[i];
+        drugi = this.datumi[i-1];
+        break;
+      }    
+    }
+    console.log(prvi);
+    console.log(drugi);
+    // console.log((this.datumi.find(x => x.inventory_id == this.odabraniDatum)))
+    //const prvi = this.datumi.find(x => x.inventory_id == this.odabraniDatum);
+    //const drugi = this.datumi.find(x => x.inventory_id == (this.odabraniDatum - 1));
     //this.datumi.find(x => x.id == (this.odabraniArtikal + 1));
-     console.log(prvi);
-     console.log(drugi);
+    //  console.log(prvi);
+    //  console.log(drugi);
 
     this.stanjeService.getStanje(prvi.inventory_id, prvi.snapshot_dttm, drugi.inventory_id,  drugi.snapshot_dttm)
       .subscribe((stanje = []) =>{this.stanje = stanje});
