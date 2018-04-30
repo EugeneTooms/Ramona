@@ -23,10 +23,10 @@
     </div>
   </div> -->
   <div class="btn-group btn-group-lg" role="group" *ngIf="toggle">
-    <button (click)="SamoRazlika()" class="btn btn-info">Samo sa Razlikom</button>
-    <button (click)="Postotak()" class="btn btn-info">Prikazi Postotak</button>
-    <button (click)="Svi()" class="btn btn-info">Svi</button>
+      <label class="text" for="razlika">Prikazi samo s razlikom : </label>
+      <input type="checkbox" name="razlika" [(ngModel)]="samorazlika" (change)="onChange()" style="width: 20px; height: 20px">
   </div>
+
   <accordion *ngIf="toggle">
     <accordion-group *ngFor='let grup of grupe' [heading]='grup.naziv' [index]='grup.id'>
       <span>
@@ -40,7 +40,7 @@
                           <th>Otpisi</th>
                           <th>Poslije</th>
                           <th>Razlika</th>
-                          <th *ngIf="postotak">Razlika %</th>
+                          <th>Razlika %</th>
                       </tr>
                   </thead>
                   <tbody>
@@ -52,7 +52,7 @@
                       <td>{{st.otpisi}}</td>
                       <td>{{st.poslije}}</td>
                       <td>{{st.razlika}}</td>
-                      <td *ngIf="postotak">{{st.razlika_postotak}}</td>
+                      <td>{{st.razlika_postotak}} %</td>
                     </tr>
                   </tbody>
               </table>

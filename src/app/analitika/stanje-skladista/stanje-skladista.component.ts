@@ -17,7 +17,7 @@ export class StanjeSkladistaComponent implements OnInit {
   grupe : any;
   odabraniDatum : any;
   toggle : boolean = false;
-  postotak : boolean = false;
+  samorazlika : boolean = false;
   constructor(private stanjeService : StanjeService) { }
 
   ngOnInit() {
@@ -28,21 +28,14 @@ export class StanjeSkladistaComponent implements OnInit {
     this.stanjeService.getDatume()
       .subscribe((datumi = [] )=> {this.datumi = datumi});
   }
-  SamoRazlika(){
-    this.stanjeraprikaz = this.stanje.filter(x => x.razlika != 0);
-  }
-  Svi(){
-    this.stanjeraprikaz = this.stanje;
-  }
-  Postotak(){
-    if (!this.postotak){
-      this.postotak = true;
+  onChange(){ //Prikazi artiklie sa razlikom DA||NE
+    if(!this.samorazlika){
+      this.stanjeraprikaz = this.stanje;
     }else{
-      this.postotak = false;
+      this.stanjeraprikaz = this.stanje.filter(x => x.razlika != 0);
     }
-
   }
-  Odaberi(broj:number){
+  Odaberi(broj:number){ //Dohvati stanje skladista
     let prvi : Datum;
     let drugi : Datum;
     this.toggle = true
@@ -53,16 +46,7 @@ export class StanjeSkladistaComponent implements OnInit {
         break;
       }    
     }
-    console.log(prvi);
-    console.log(drugi);
-    // console.log((this.datumi.find(x => x.inventory_id == this.odabraniDatum)))
-    //const prvi = this.datumi.find(x => x.inventory_id == this.odabraniDatum);
-    //const drugi = this.datumi.find(x => x.inventory_id == (this.odabraniDatum - 1));
-    //this.datumi.find(x => x.id == (this.odabraniArtikal + 1));
-    //  console.log(prvi);
-    //  console.log(drugi);
-
-    this.stanjeService.getStanje(prvi.inventory_id, prvi.snapshot_dttm, drugi.inventory_id,  drugi.snapshot_dttm)
+    this.stanjeService.getStanje(prvi.inventory_id, prvi.snapshot_dttm, drugi.inventory_id,  drugi.snapshot_dttm) 
       .subscribe((stanje = []) =>{
         this.stanjeraprikaz = stanje
         this.stanje = stanje
