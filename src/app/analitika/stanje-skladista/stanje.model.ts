@@ -7,5 +7,6 @@ export class Stanje{
                 public prodaja? : number,
                 public otpisi? : number,
                 public poslije? : number,
-                public razlika? : number) {}
+                public razlika? : number,
+                public razlika_postotak? : number) {}
 }

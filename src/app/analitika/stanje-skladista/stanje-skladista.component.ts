@@ -17,6 +17,7 @@ export class StanjeSkladistaComponent implements OnInit {
   grupe : any;
   odabraniDatum : any;
   toggle : boolean = false;
+  postotak : boolean = false;
   constructor(private stanjeService : StanjeService) { }
 
   ngOnInit() {
@@ -32,6 +33,14 @@ export class StanjeSkladistaComponent implements OnInit {
   }
   Svi(){
     this.stanjeraprikaz = this.stanje;
+  }
+  Postotak(){
+    if (!this.postotak){
+      this.postotak = true;
+    }else{
+      this.postotak = false;
+    }
+
   }
   Odaberi(broj:number){
     let prvi : Datum;

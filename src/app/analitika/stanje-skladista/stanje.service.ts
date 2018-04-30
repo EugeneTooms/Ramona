@@ -50,7 +50,8 @@ export class StanjeService {
             item.prodaja,
             item.otpisi,
             item.poslije,
-            (Math.round( (item.poslije - (item.prije+item.ulazi+item.prodaja+item.otpisi)) * 10) / 10)
+            (Math.round( (item.poslije - (item.prije+item.ulazi+item.prodaja+item.otpisi)) * 10) / 10),
+            Math.floor(((Math.round( (item.poslije - (item.prije+item.ulazi+item.prodaja+item.otpisi)) * 10) / 10) / item.poslije) * 100)
             ));
         }
         this.stanje = transformedstanje;
