@@ -6,24 +6,6 @@ var path = require('path');
 var config = require('../config');
 var kon = config.getDBconnection();
 /* GET FUNKCIJE */
-router.get('/test', function(req, res){
-    kon.query(`
-    SELECT * FROM suppliers
-    `,
-        function(error, results){
-                if(error) {
-                    return res.status(500).json({
-                        title: 'An error has occured',
-                        error : error
-                    });
-                }			
-                res.status(200).json({
-                    message: 'Success',
-                    obj: results
-                });
-        }
-    );
-});
 router.get('/lokacije', function(req, res, next){
     kon.query(`
     SELECT * FROM bot_locations ORDER BY pozicija
