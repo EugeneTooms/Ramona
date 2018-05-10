@@ -24,7 +24,7 @@ router.get('/lokacije', function(req, res, next){
         }
     );
 });
-router.get('/ionicartikli', function(req, res, next){
+router.get('/artikli', function(req, res, next){
     kon.query(`
     SELECT bot_location_articles.article_id, bot_location_articles.location_id, bot_location_articles.indeks, bot_inventura_detail.inventory_id, bot_inventura_detail.kolicina, articles.name, articles.img
     FROM bot_location_articles
