@@ -1,4 +1,5 @@
 <div class="container-fluid">
+  <app-podlokacija></app-podlokacija>
   <ul class="list-group">
     <li *ngFor='let lokacija of lokacije; let i = index' class="list-group-item">
       <div [ngClass]="{'active': selectedIndex == i, 'list-group-item': true}" (click)="setIndex(i, lokacija.id)">{{lokacija.naziv}}</div>
@@ -18,7 +19,12 @@
           <hr>
           <div class="clearfix">
             <ul class="list-group" [sortablejs]="artikliLokacija" [sortablejsOptions]="eventOptions">
-              <li *ngFor='let art of artikliLokacija | filter : "location_id" : lokacija.id'class="list-group-item">{{art.id}}</li>
+              <li *ngFor='let art of artikliLokacija | filter : "location_id" : lokacija.id'class="list-group-item">{{art.id}}
+                <div class="card" style="width: 8%;">
+                  <img class="card-img-top" src="assets/img/articles/{{art?.img}}" alt="Card image cap">
+                </div>
+                <h4>{{art.name}}</h4>
+              </li>
             </ul>
           </div>
           

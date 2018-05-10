@@ -89,6 +89,63 @@ router.get('/grupeartikala', function(req, res, next){
         }
     );
 });
+router.get('/ionicartikli', function(req, res, next){
+    kon.query(`
+    SELECT articles.id, bot_inventura_master.inventory_id, bot_inventura_master.location_id, bot_location_articles.indeks, articles.name, articles.img, bot_inventura_detail.kolicina 
+    FROM bot_inventura_detail 
+    LEFT JOIN articles on bot_inventura_detail.article_id = articles.id
+    LEFT JOIN bot_location_articles on 
+    bot_inventura_detail.article_id = bot_location_articles.article_id 
+    AND bot_inventura_detail.location_id = bot_location_articles.location_id
+    AND bot_location_articles.indeks is not null
+    LEFT JOIN bot_inventura_master on
+    bot_inventura_detail.location_id = bot_inventura_master.location_id AND
+    bot_inventura_detail.inventory_id = bot_inventura_master.inventory_id
+    WHERE 
+    bot_inventura_master.inventory_id = ( SELECT  MAX(bot_inventura_master.inventory_id)
+    FROM bot_inventura_master 
+    WHERE  
+    bot_inventura_master.location_id =  bot_inventura_detail.location_id)
+    ORDER BY location_id, indeks
+    `,
+        function(error, results){
+                if(error) {
+                    return res.status(500).json({
+                        title: 'An error has occured',
+                        error : error
+                    });
+                }			
+                res.status(200).json({
+                    message: 'Success',
+                    obj: results
+                });
+        }
+    );
+});
+router.get('/ioniclokacije', function(req, res, next){
+    kon.query(`
+    SELECT bot_inventura_master.inventory_id, bot_inventura_master.location_id,  bot_locations.naziv_lokacije
+    FROM bot_inventura_master 
+    LEFT JOIN bot_locations on bot_inventura_master.location_id = bot_locations.id
+    WHERE 
+    bot_inventura_master.inventory_id = ( SELECT  MAX(bot_inventura_master.inventory_id)
+    FROM bot_inventura_master)
+    ORDER BY inventory_id, location_id
+    `,
+        function(error, results){
+                if(error) {
+                    return res.status(500).json({
+                        title: 'An error has occured',
+                        error : error
+                    });
+                }			
+                res.status(200).json({
+                    message: 'Success',
+                    obj: results
+                });
+        }
+    );
+});
 router.get('/ionicinventura/:id', function(req, res, next){
     kon.query(`
             SELECT articles.id, bot_inventura_master.inventory_id, bot_location_articles.indeks, articles.name, articles.img, bot_inventura_detail.kolicina 
@@ -122,22 +179,30 @@ router.get('/ionicinventura/:id', function(req, res, next){
 });
 router.post('/ionicinventura', function(req, res, next){
     var artikli = [];
-    var jsondata = req.body.artikli;
+    var master = [];
+    var jsonartikli = req.body.artikli;
+    var jsonmaster = req.body.master;
 
-    kon.query('INSERT INTO bot_inventura_master SET ?', {inventory_id : req.body.inventory_id, location_id : req.body.lokacija.id, snapshot_dttm : req.body.datum},
+    for (let i=0;i<jsonmaster.length; i++){
+        master.push([jsonmaster[i].inventory_id+1,
+            jsonmaster[i].location_id,
+            req.body.datum
+            ]);
+    }   
+    for (let i=0;i<jsonartikli.length; i++){
+        artikli.push([jsonartikli[0].inventory_id+1,
+            jsonartikli[i].lokacija_id,
+            jsonartikli[i].id,
+            jsonartikli[i].kolicina,
+        ]);
+    }
+    kon.query('INSERT INTO bot_inventura_master VALUES ?', [master],
     function(error, results){
             if(error) {
                 return res.status(500).json({
                     title: 'An error has occured',
                     error : error
                 });
-            }
-            for (let i=0;i<jsondata.length; i++){
-                artikli.push([req.body.inventory_id,
-                    req.body.lokacija.id,
-                    jsondata[i].id,
-                    jsondata[i].kolicina,
-                ]);
             }
             kon.query('INSERT INTO bot_inventura_detail VALUES ?', [artikli],
             function(error, results){
@@ -155,8 +220,8 @@ router.post('/ionicinventura', function(req, res, next){
             );		
         }
     );
-
 });
+
 router.get('/dobavljaci', function(req, res, next){
     kon.query('SELECT * from suppliers',
         function(error, results){
@@ -175,6 +240,34 @@ router.get('/dobavljaci', function(req, res, next){
 });
 router.get('/primke', function(req, res, next){
     kon.query('SELECT * from receivings',
+        function(error, results){
+                if(error) {
+                    return res.status(500).json({
+                        title: 'An error has occured',
+                        error : error
+                    });
+                }			
+                res.status(200).json({
+                    message: 'Success',
+                    obj: results
+                });
+        }
+    );
+});
+router.get('/test', function(req, res, next){
+    kon.query(`
+    select json_object(
+        'id',bot_inventura_master.inventory_id 
+       ,'location_id',bot_inventura_master.location_id 
+       ,'artikli',json_array(
+                           (select GROUP_CONCAT(
+                                       json_object('article_id',article_id,'kolicina', kolicina)
+                                   )   
+                            from bot_inventura_detail 
+                            where bot_inventura_master.inventory_id = bot_inventura_detail.inventory_id AND bot_inventura_master.location_id = bot_inventura_detail.location_id))
+                         )
+       from bot_inventura_master;
+    `,
         function(error, results){
                 if(error) {
                     return res.status(500).json({

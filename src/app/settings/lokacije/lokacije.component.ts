@@ -49,14 +49,14 @@ export class LokacijeComponent implements OnInit {
     this.artiliService.getArtikle().subscribe((artikli = []) => {this.artikli = artikli});
   }
   dodajArtikal(lokid){
-    const noviartikal = new Lokacija_Artikal(this.odabraniArtikal,lokid, this.artikliLokacija.length)
-    this.lokacijaService.DodajArtikalNaLokaciju(noviartikal);
+    //const noviartikal = new Lokacija_Artikal(this.odabraniArtikal,lokid, this.artikliLokacija.length)
+    //this.lokacijaService.DodajArtikalNaLokaciju(noviartikal);
   }
   dodajLokaciju(form : NgForm){
-    let novalokacija = new Lokacija(this.lokacije.length + 1 , form.value.novaLokacija);
-    this.lokacijaService.AddLokacija(novalokacija)
-      .subscribe(data => console.log(data), error => console.log(error)
-    );
+    //let novalokacija = new Lokacija(this.lokacije.length + 1 , form.value.novaLokacija);
+    // this.lokacijaService.AddLokacija(novalokacija)
+    //   .subscribe(data => console.log(data), error => console.log(error)
+    // );
     form.resetForm();
   }
   SpremiLokaciju(form : NgForm, id : number){

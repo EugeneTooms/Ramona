@@ -5,14 +5,15 @@ import { SharedModule } from '../../shared/shared.module';
 import { LokacijaService } from './lokacija.service';
 import { ArtikliService } from '../../ulazi/artikli/artikli.service';
 import { FormsModule } from '@angular/forms';
+import { podlokacijaComponent } from './podlokacija.component';
 
 
 @NgModule({
   imports: [
     SharedModule, FormsModule, SortablejsModule.forRoot({animation : 150})
   ],
-  declarations: [LokacijeComponent],
-  exports : [LokacijeComponent],
+  declarations: [LokacijeComponent,podlokacijaComponent],
+  exports : [LokacijeComponent,podlokacijaComponent],
   providers: [LokacijaService, ArtikliService]
 })
 export class LokacijeModule { }

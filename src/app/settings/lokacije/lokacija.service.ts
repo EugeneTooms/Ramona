@@ -19,7 +19,7 @@ export class LokacijaService{
                 const lokacije = response.json().obj;
                 let transformedLokacije: Lokacija[] = [];
                 for (let lokacija of lokacije){
-                    transformedLokacije.push(new Lokacija(lokacija.id, lokacija.naziv_lokacije));
+                    transformedLokacije.push(new Lokacija(lokacija.id, lokacija.naziv_lokacije, lokacija.pozicija));
                 }
                 this.lokacije = transformedLokacije;
                 return transformedLokacije;
@@ -35,27 +35,27 @@ export class LokacijaService{
             .map((response : Response) => response.json())
             .catch((error : Response) => Observable.throw(error.json()));
     }
-    getLocationArticles(){
-        return this.http.get( environment.apiURL +'artikli/byLocation')
-        .map((response : Response) => {
-            const artikli = response.json().obj;
-            let transformedartikli: Lokacija_Artikal[] = [];
-            for (let artikal of artikli){
-                transformedartikli.push(new Lokacija_Artikal(artikal.article_id , artikal.location_id, artikal.index));
-            }
-            this.lokacijaArtikli = transformedartikli;
-            return transformedartikli;
-        })
-        .catch((error: Response) => Observable.throw(error.json()) 
-    );
-    }
+    // getLocationArticles(){
+    //     return this.http.get( environment.apiURL +'artikli/byLocation')
+    //     .map((response : Response) => {
+    //         const artikli = response.json().obj;
+    //         let transformedartikli: Lokacija_Artikal[] = [];
+    //         for (let artikal of artikli){
+    //             transformedartikli.push(new Lokacija_Artikal(artikal.article_id , artikal.location_id, artikal.index));
+    //         }
+    //         this.lokacijaArtikli = transformedartikli;
+    //         return transformedartikli;
+    //     })
+    //     .catch((error: Response) => Observable.throw(error.json()) 
+    // );
+    // }
     getArticlesByLocation(id: number){
         return this.http.get( environment.apiURL +'artikli/byLocation/'+ id)
         .map((response : Response) => {
             const artikli = response.json().obj;
             let transformedartikli: Lokacija_Artikal[] = [];
             for (let artikal of artikli){
-                transformedartikli.push(new Lokacija_Artikal(artikal.article_id , artikal.location_id, artikal.indeks));
+                transformedartikli.push(new Lokacija_Artikal(artikal.article_id , artikal.location_id, artikal.name, artikal.img, artikal.indeks));
             }
             this.lokacijaArtikli = transformedartikli;
             return transformedartikli;
