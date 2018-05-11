@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var path = require('path');
+var moment = require('moment-timezone');
 
 //Majne modžuls
 var config = require('../config');
@@ -50,18 +51,17 @@ router.get('/artikli', function(req, res, next){
         }
     );
 });
-
 /* POST FUNKCIJE */
 router.post('/ionicinventura', function(req, res, next){
     var artikli = [];
     var master = [];
     var jsonartikli = req.body.artikli;
     var jsonmaster = req.body.master;
-
+    var datum = moment(req.body.datum).format('YYYY-MM-DD HH:mm:ss');
     for (let i=0;i<jsonmaster.length; i++){
-        master.push([jsonmaster[i].inventory_id+1,
+        master.push([jsonartikli[0].inventory_id+1,
             jsonmaster[i].location_id,
-            req.body.datum
+            datum
             ]);
     }   
     for (let i=0;i<jsonartikli.length; i++){
