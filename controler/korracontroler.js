@@ -25,6 +25,25 @@ router.get('/lokacije', function(req, res, next){
         }
     );
 });
+router.get('/lokacijezainventuru', function(req, res, next){
+    kon.query(`
+    SELECT distinct(location_id), bot_locations.naziv_lokacije FROM ugo.bot_location_articles
+    LEFT JOIN bot_locations ON bot_locations.id = bot_location_articles.location_id ORDER BY location_id
+    `,
+        function(error, results){
+                if(error) {
+                    return res.status(500).json({
+                        title: 'An error has occured',
+                        error : error
+                    });
+                }			
+                res.status(200).json({
+                    message: 'Success',
+                    obj: results
+                });
+        }
+    );
+});
 router.get('/artikli', function(req, res, next){
     kon.query(`
     SELECT bot_location_articles.article_id, bot_location_articles.location_id, bot_location_articles.indeks, bot_inventura_detail.inventory_id, bot_inventura_detail.kolicina, articles.name, articles.img
@@ -55,12 +74,17 @@ router.get('/artikli', function(req, res, next){
 router.post('/ionicinventura', function(req, res, next){
     var artikli = [];
     var master = [];
+    var lokacije = [];
     var jsonartikli = req.body.artikli;
-    var jsonmaster = req.body.master;
     var datum = moment(req.body.datum).format('YYYY-MM-DD HH:mm:ss');
-    for (let i=0;i<jsonmaster.length; i++){
+    for(var i = 0; i < jsonartikli.length; i++) {
+        if(!lokacije.includes(jsonartikli[i].lokacija_id)) {
+            lokacije.push(jsonartikli[i].lokacija_id);
+        }
+    }
+    for (let i=0;i<lokacije.length; i++){
         master.push([jsonartikli[0].inventory_id+1,
-            jsonmaster[i].location_id,
+            lokacije[i],
             datum
             ]);
     }   
