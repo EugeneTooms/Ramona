@@ -27,14 +27,14 @@ router.get('/lokacije', function(req, res, next){
 });
 router.get('/artikli', function(req, res, next){
     kon.query(`
-    SELECT bot_location_articles.article_id, bot_location_articles.location_id, bot_location_articles.indeks, bot_inventura_detail.inventory_id, bot_inventura_detail.kolicina, articles.name, articles.img
+    SELECT bot_location_articles.article_id, bot_location_articles.location_id, bot_location_articles.indeks, bot_inventura_detail.inventory_id, bot_inventura_detail.kolicina, bot_articles_details.article_name, bot_articles_details.img_src
     FROM bot_location_articles
     LEFT JOIN bot_inventura_detail ON (
     bot_inventura_detail.inventory_id = (SELECT  MAX(bot_inventura_detail.inventory_id) FROM bot_inventura_detail 
     WHERE bot_inventura_detail.location_id = bot_location_articles.location_id) &&
     bot_inventura_detail.article_id = bot_location_articles.article_id && 
     bot_inventura_detail.location_id = bot_location_articles.location_id)
-    LEFT JOIN articles ON articles.id = bot_location_articles.article_id
+    LEFT JOIN bot_articles_details ON bot_articles_details.article_id = bot_location_articles.article_id
     ORDER BY location_id, indeks
     `,
         function(error, results){
