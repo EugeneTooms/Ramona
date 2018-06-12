@@ -11,6 +11,7 @@ export class ListaArtikalaComponent implements OnInit {
   @Input() artikli : Artikal[] = [];
   artikal : Artikal;
   toggle : number = 0;
+  articlename : string='';
   constructor(private artikliService : ArtikliService) { }
 
   ngOnInit() {
