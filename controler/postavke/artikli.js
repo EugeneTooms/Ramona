@@ -40,9 +40,9 @@ router.get('/byLocation/', function(req, res) {
 );
 });
 router.get('/byLocation/:id', function(req, res) {
-    kon.query(`SELECT bot_location_articles.article_id, bot_location_articles.location_id, bot_location_articles.indeks, articles.name, articles.img
+    kon.query(`SELECT bot_location_articles.article_id, bot_location_articles.location_id, bot_location_articles.indeks, bot_articles_details.article_name, bot_articles_details.img_src
     from bot_location_articles 
-    LEFT JOIN articles on articles.id = bot_location_articles.article_id 
+    LEFT JOIN bot_articles_details ON bot_articles_details.article_id = bot_location_articles.article_id 
     WHERE location_id = ` + req.params.id.toString() + ` ORDER BY indeks`,
     function(error, results){
             if(error) {
