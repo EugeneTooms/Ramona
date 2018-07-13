@@ -7,6 +7,114 @@ var moment = require('moment-timezone');
 var config = require('../config');
 var kon = config.getDBconnection();
 /* GET FUNKCIJE */
+router.get('/artikliZaOrder', function(req, res, next){
+    var artikli
+    kon.query(`
+    SELECT * FROM articles
+    `,
+        function(error, results){
+                if(error) {
+                    return res.status(500).json({
+                        title: 'An error has occured',
+                        error : error
+                    });
+                }
+                artikli = results;
+    
+                for (let i=0;i<artikli.length; i++){
+                    kon.query(`
+                    select id, naziv from bot_zapremnina left join 
+                    bot_zapremnina_articles on zapremnina_id = bot_zapremnina.id where article_id = ` + artikli[i].id,
+                    function(error, results){
+                            if(error) {
+                                return res.status(500).json({
+                                    title: 'An error has occured',
+                                    error : error
+                                });
+                            }		
+                            artikli[i].zapremnine = results;
+                    }
+                    );	
+                }
+                for (let i=0;i<artikli.length; i++){
+                    kon.query(`
+                    select id, naziv from bot_paketi left join 
+                    bot_paketi_articles on paketi_id = bot_paketi.id where article_id = ` + artikli[i].id,
+                    function(error, results){
+                            if(error) {
+                                return res.status(500).json({
+                                    title: 'An error has occured',
+                                    error : error
+                                });
+                            }		
+                            artikli[i].paketi = results;	
+                            if(i == (artikli.length-1)){
+                                res.status(201).json({
+                                    message: 'Success',
+                                    obj: artikli
+                                });
+                            }
+                    }
+                    );	
+                }
+
+        }
+    );
+});
+router.get('/orders', function(req, res, next){
+    var orders;
+    kon.query(`
+    SELECT * FROM bot_orders
+    `,
+        function(error, results){
+                if(error) {
+                    return res.status(500).json({
+                        title: 'An error has occured',
+                        error : error
+                    });
+                }	
+                orders = results;		
+                for (let i=0;i<orders.length; i++){
+                    kon.query(`
+                    select * from bot_orders_articles where order_id = ` + orders[i].id,
+                    function(error, results){
+                            if(error) {
+                                return res.status(500).json({
+                                    title: 'An error has occured',
+                                    error : error
+                                });
+                            }		
+                            orders[i].artikli = results;	
+                            if(i == (orders.length-1)){
+                                res.status(201).json({
+                                    message: 'Sucess',
+                                    obj: orders
+                                });
+                            }
+                    }
+                    );	
+                }
+        }
+    );
+});
+router.get('/orderitems', function(req, res, next){
+    kon.query(`
+    SELECT * FROM receiving_order_items
+    `,
+        function(error, results){
+                if(error) {
+                    return res.status(500).json({
+                        title: 'An error has occured',
+                        error : error
+                    });
+                }			
+                res.status(200).json({
+                    message: 'Success',
+                    obj: results
+                });
+        }
+    );
+});
 router.get('/lokacije', function(req, res, next){
     kon.query(`
     SELECT * FROM bot_locations ORDER BY pozicija
