@@ -10,7 +10,7 @@ var kon = config.getDBconnection();
 router.get('/artikliZaOrder', function(req, res, next){
     var artikli
     kon.query(`
-    SELECT * FROM articles
+    SELECT id, name, amount, img_src FROM botani06_ugo_web.articles left join bot_articles_details on bot_articles_details.article_id = articles.id
     `,
         function(error, results){
                 if(error) {
