@@ -24,7 +24,7 @@ router.get('/artikliZaOrder', function(req, res, next){
                 for (let i=0;i<artikli.length; i++){
                     kon.query(`
                     select id, naziv from bot_zapremnina left join 
-                    bot_zapremnina_articles on zapremnina_id = bot_zapremnina.id where article_id = ` + artikli[i].id,
+                    bot_zapremnina_articles on bot_zapremnina_articles.zapremnina_id = bot_zapremnina.id where article_id = ` + artikli[i].id,
                     function(error, results){
                             if(error) {
                                 return res.status(500).json({
