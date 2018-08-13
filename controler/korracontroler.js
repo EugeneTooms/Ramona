@@ -11,7 +11,8 @@ var mejler = require('./mejler');
 router.get('/artikliZaOrder', function(req, res, next){
     var artikli
     kon.query(`
-    SELECT id, name, amount, img_src, supplier_id, dozvoljeni_kalo FROM ugo.articles left join bot_articles_details on bot_articles_details.article_id = articles.id
+    SELECT id, name, amount, img_src, supplier_id, dozvoljeni_kalo, box_qty FROM ugo.articles left join bot_articles_details on bot_articles_details.article_id = articles.id
+    where box_qty is not null
     `,function(error, results){
         if(error) {
             return res.status(500).json({
@@ -102,6 +103,7 @@ router.get('/orders', function(req, res, next){
                     article_name,
                     img_src, 
                     kalo,
+                    bot_articles_details.box_qty,
                     boce_kol,
                     paketi_kol
                     from bot_orders_articles  left join bot_articles_details on bot_articles_details.article_id = bot_orders_articles.article_id
@@ -302,7 +304,7 @@ router.post('/primka', function(req, res, next){
                 details.push([
                     results.insertId,
                     jsonprimka.artikli[i].article_id,
-                    (jsonprimka.artikli[i].kalo*jsonprimka.artikli[i].paketi_kol)
+                    ((jsonprimka.artikli[i].box_qty*jsonprimka.artikli[i].paketi_kol + jsonprimka.artikli[i].boce_kol)*jsonprimka.artikli[i].kalo)
                 ]);
                 if (i==(jsonprimka.artikli.length-1)){
                     kon.query(`INSERT INTO receiving_items (receiving_id, article_id, amount) VALUES ?`,[details],

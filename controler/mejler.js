@@ -6,8 +6,8 @@ var kon = config.getDBconnection();
 var transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'mladen.krneta@gmail.com',
-    pass: `th1$$1d3up`
+    user: 'ivica@botanicar.hr',
+    pass: `Ramuscak2018`
   }
 });
 
@@ -43,14 +43,14 @@ module.exports = {
                         if(error) {
                             return error;
                         } 
-                        tekst =` <h1>Narudžba za `+primatelj[0].name+`</h1><br>`
+                        tekst =` <h1>Narudžba za Botaničar</h1><br>`
                         for (var index in narudzba){
                             tekst = tekst + '<p><strong>'+narudzba[index].name+ '</strong>,'+narudzba[index].kalo+' X <strong>'+ narudzba[index].paketi_kol+'</strong></p>';
                         };
                         var mailOptions = {
                             from: 'mladen.krneta@gmail.com',
                             to: primatelj[0].email,
-                            subject: 'Narudzba',
+                            subject: 'Narudzba za Botanicar',
                             html: tekst
                           };
                           transporter.sendMail(mailOptions, function(error, info){
