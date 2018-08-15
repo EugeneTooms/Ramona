@@ -11,8 +11,13 @@ var mejler = require('./mejler');
 router.get('/artikliZaOrder', function(req, res, next){
     var artikli
     kon.query(`
-    SELECT id, name, amount, img_src, supplier_id, dozvoljeni_kalo, box_qty FROM ugo.articles left join bot_articles_details on bot_articles_details.article_id = articles.id
-    where box_qty is not null
+    SELECT articles.id, articles.name, amount, img_src, supplier_id, qty, box_qty, suppliers.email FROM ugo.articles 
+    left join bot_articles_details on bot_articles_details.article_id = articles.id
+    left join suppliers on suppliers.id = bot_articles_details.supplier_id
+    where box_qty is not null 
+    and supplier_id is not null 
+    and qty is not null
+    and email is not null
     `,function(error, results){
         if(error) {
             return res.status(500).json({
@@ -102,7 +107,7 @@ router.get('/orders', function(req, res, next){
                     bot_orders_articles.article_id,
                     article_name,
                     img_src, 
-                    kalo,
+                    bot_articles_details.qty,
                     bot_articles_details.box_qty,
                     boce_kol,
                     paketi_kol
@@ -262,7 +267,8 @@ router.post('/orders', function(req, res, next){
                             kon.query('INSERT INTO bot_orders_articles VALUES (' +
                                 results.insertId+ ','+
                                 jsonorders[j].id + ','+
-                                jsonorders[j].kalo+ ','+
+                                jsonorders[j].qty+ ','+
+                                jsonorders[j].box_qty+ ','+
                                 jsonorders[j].boce+ ','+
                                 jsonorders[j].boxes+ ')',
                                 function(error, rezultati){
@@ -304,7 +310,7 @@ router.post('/primka', function(req, res, next){
                 details.push([
                     results.insertId,
                     jsonprimka.artikli[i].article_id,
-                    ((jsonprimka.artikli[i].box_qty*jsonprimka.artikli[i].paketi_kol + jsonprimka.artikli[i].boce_kol)*jsonprimka.artikli[i].kalo)
+                    ((jsonprimka.artikli[i].box_qty*jsonprimka.artikli[i].paketi_kol + jsonprimka.artikli[i].boce_kol)*jsonprimka.artikli[i].qty)
                 ]);
                 if (i==(jsonprimka.artikli.length-1)){
                     kon.query(`INSERT INTO receiving_items (receiving_id, article_id, amount) VALUES ?`,[details],

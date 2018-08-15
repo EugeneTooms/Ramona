@@ -36,7 +36,7 @@ module.exports = {
                     return error;
                 }
                 kon.query(`
-                SELECT paketi_kol, kalo, name FROM ugo.bot_orders_articles 
+                SELECT paketi_kol, qty, name FROM ugo.bot_orders_articles 
                 left join articles on articles.id = bot_orders_articles.article_id
                 where order_id = ` + id+';',
                 function(error, narudzba){
@@ -45,7 +45,7 @@ module.exports = {
                         } 
                         tekst =` <h1>Narudžba za Botaničar</h1><br>`
                         for (var index in narudzba){
-                            tekst = tekst + '<p><strong>'+narudzba[index].name+ '</strong>,'+narudzba[index].kalo+' X <strong>'+ narudzba[index].paketi_kol+'</strong></p>';
+                            tekst = tekst + '<p><strong>'+narudzba[index].name+ '</strong>,'+narudzba[index].qty+' X <strong>'+ narudzba[index].paketi_kol+'</strong></p>';
                         };
                         var mailOptions = {
                             from: 'mladen.krneta@gmail.com',
